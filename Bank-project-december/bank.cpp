@@ -45,6 +45,7 @@ class Bank_account {
 		double accountBalance;
 		double totalDeposit, totalWithdraws;
 		int depositCounter, withdrawCounter;
+		double annualInterestRate, monthlyInterestRate;
 	public:
 		/**
 		 * @brief Construct a new bank account object
@@ -54,6 +55,23 @@ class Bank_account {
 			accountBalance = 0.0;
 			totalDeposit , totalWithdraws = 0;
 			depositCounter , withdrawCounter = 0;
+			annualInterestRate = init();
+		}
+
+		double init() {
+			double getAnnualIntRate = 0.0;
+			cout << "\nWelcome, Please enter current"
+				 << " annual interest rate for this year: ";
+			cin >> getAnnualIntRate;
+			if ( getAnnualIntRate > 0 )
+				return getAnnualIntRate;
+			else {
+				cout << "You must enter valid interest rate.";
+			}
+			/**
+			 * TODO: Validate input
+			 * TODO: Add loop to enforce user
+			 */
 		}
 		
 		bool deposit( double depositAmount ) {
