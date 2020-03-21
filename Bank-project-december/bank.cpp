@@ -48,6 +48,8 @@ class Bank_account {
 	 * TODO: Display account summary for this month
 	 * 
 	*/
+	protected:
+	
 	private:
 		double accountBalance;
 		double totalDeposit, totalWithdraws;
@@ -151,45 +153,17 @@ class Bank_account {
 
 };
 
-int bank_account::balances = 0;
-class saving_account: public bank_account {
-	public: saving_account() {}
-	int withdraw() {
-		if (balances < 25) {
-			status = 0;
-		} else {
-			status = 1;
+class Saving_account : public Bank_account {
+	private:
+		double monthlyCharges, chargesPerWithdraw;
+	public:
+		Saving_account() {
+			monthlyCharges = 0.0,
+			chargesPerWithdraw = 0.0;
 		}
 
+		bool accountStatus() 
 
-		if (status == 1) {
-			bank_account::withdraw(no_of_withdraw);
-			/*
-				withdraw function is returning t_w
-				if none catching it why bother return 
-				it in first place?
-			*/
-		} else {
-			cout << "account is inactive";
-		}
-	}
-	void deposite(int amount) {
-		//balances=balances+amount;
-		//cout<<balances;
-		bank_account::deposite(amount);
-	}
-	void monthlyproc() {
-		if (w_inc > 4) {
-			cout << "u have 5th withdraw in this month :: service charges for each withdraw";
-			monthly_services_charge = 1;
-			if (balances < 25) {
-				status = 0;
-				cout << "account inactive";
-			} else {
-				status = 1;
-			}
-		}
-	}
 };
 
 class checking_account: public saving_account {
