@@ -50,10 +50,10 @@ class Bank_account {
 	*/
 	protected:
 		double accountBalance;
+		int depositCounter, withdrawCounter;
 	private:
 		
 		double totalDeposit, totalWithdraws;
-		int depositCounter, withdrawCounter;
 		double annualInterestRate, monthlyInterestRate;
 		double monthlyInterest , monthlyCharges;
 	public:
@@ -144,7 +144,8 @@ class Bank_account {
 				 << "\nTotal amount deposited : " << totalDeposit;
 			
 			cout << "\nYou've earned $" << getMonthlyInterest() << " for having $" << accountBalance << " balance.\n";
-			cout << "\nMonthly charges for this month $" << monthlyBill() << ".";
+			cout << "\nMonthly charges for this month $" << monthlyBill(CHARGE_PER_WITHDRAW) << ".";
+			// *Charges per month for bank class are fixed.
 		}
 
 		// like month ended begin variables for
@@ -164,7 +165,7 @@ class Saving_account : public Bank_account {
 	public:
 		Saving_account() {
 			monthlyCharges = 0.0,
-			chargesPerWithdraw = 0.0;
+			chargesPerWithdraw = 0.03;
 		}
 
 		bool accountStatus( double currentBalance ) {
@@ -201,6 +202,23 @@ class Saving_account : public Bank_account {
 		 * ? based on account type. 
 		 * ! Revise the concepts of virtual, polymorphism.
 		 */
+
+		void saving_monthlyBill() {
+			/**
+			 * TODO: Think about solving monthlyReport function interjunction of monthlyBill function call in it.
+			 * TODO: Think about why saved monthlyCharges of saving account? What's the use of it.
+			 * 
+			 */
+			if ( withdrawCounter > 4 ) {
+				cout << "\nYou've had four withdraws, "
+					 << "You've 5th withdraw this month, "
+					 << "service charges for each withdraw "
+					 << "is now " << chargesPerWithdraw * 0.02 
+					 << " percent.\n";
+				chargesPerWithdraw *= 0.02;
+				monthlyCharges = Bank_account::monthlyBill( chargesPerWithdraw );
+			}
+		}
 };
 
 class checking_account: public saving_account {
