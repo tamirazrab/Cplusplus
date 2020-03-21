@@ -145,7 +145,7 @@ class checking_account: public saving_account {
 
 int main() {
 	int userChoice = 0;
-	bool validate_choice = false;
+	bool validate_choice = false, exitSignal = true;
 	// Basic Menu
 	do {
 		
@@ -180,14 +180,11 @@ int main() {
 			case 4:
 				cout << "\n Thank you for using \n" <<
 					"Have a good day.\n";
-				// exiting program
-				exit(EXIT_SUCCESS);
+				exitSignal = false;
 				break;
 			default:
 				break;
 		}
-	} while ();
-
-
+	} while ( exitSignal );
 	return 0;
 }
