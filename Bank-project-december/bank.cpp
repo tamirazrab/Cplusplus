@@ -106,6 +106,11 @@ class Bank_account {
 			}
 		}
 
+		void calculateInterest() {
+			monthlyInterestRate = ( annualInterestRate / 12.0 );
+			monthlyInterest = monthlyInterestRate * accountBalance;
+			accountBalance += monthlyInterest;
+		}
 		
 };
 
