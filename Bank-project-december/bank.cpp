@@ -119,7 +119,7 @@ class Bank_account {
 			accountBalance += monthlyInterest;
 		}
 		
-		void getMonthlyInterest() {
+		double getMonthlyInterest() {
 			return monthlyInterest;
 		}
 
