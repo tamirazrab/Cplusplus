@@ -175,3 +175,27 @@ public:
  
  };
  
+int main() {
+    int userChoice = 0;
+    bool validate_choice = false;
+
+    // Basic Menu
+    do {
+        cout << "\tBank System - Menu\n" 
+        << "1- Deposit" << "2- Withdraw" 
+        << "3- Account Summary" << "4- Exit\n";
+        cout << "Enter your choice: ";
+        cin >> userChoice;
+        // Validation of user choice
+        if ( userChoice <= 0 || userChoice > 4 ) {
+            cout << "Error: You've entered invalid choice.\n"
+                << "Please enter correct choice.\n";
+            validate_choice = true;
+        } else {
+            validate_choice = false;
+        }
+    } while ();
+
+
+    return 0;
+}
