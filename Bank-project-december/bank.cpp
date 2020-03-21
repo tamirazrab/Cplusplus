@@ -49,9 +49,9 @@ class Bank_account {
 	 * 
 	*/
 	protected:
-	
-	private:
 		double accountBalance;
+	private:
+		
 		double totalDeposit, totalWithdraws;
 		int depositCounter, withdrawCounter;
 		double annualInterestRate, monthlyInterestRate;
