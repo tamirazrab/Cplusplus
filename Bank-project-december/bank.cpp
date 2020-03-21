@@ -46,6 +46,16 @@ class Bank_account {
 		double totalDeposit, totalWithdraws;
 		int depositCounter, withdrawCounter;
 	public:
+		/**
+		 * @brief Construct a new bank account object
+		 * Initializing all member variables to default
+		 */
+		bank_account() {
+			accountBalance = 0.0;
+			totalDeposit , totalWithdraws = 0;
+			depositCounter , withdrawCounter = 0;
+		}
+		
 		bool deposit( double depositAmount ) {
 			if ( depositAmount <= 0 )
 				return false;
