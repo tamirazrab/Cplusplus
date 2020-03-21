@@ -177,8 +177,7 @@ class Saving_account : public Bank_account {
 					cout << "\nCouldn't process your request.";
 					cout << "\nPlease try again.";
 					return false;
-				} else 
-					return true;
+				} 
 			} else {
 				cout << "\nYour account has been inactive, "
 					 << "Due to lower balance than 25$."
@@ -186,7 +185,19 @@ class Saving_account : public Bank_account {
 					 << "activate your account.";
 				return false;
 			}
+			return true;
 		}
+
+		/**
+		 * *No need to make deposit method as it's just
+		 * *Calling parent class deposit method doesn't 
+		 * *make sense to just make function to call other
+		 * *function. Will just directly call the parent
+		 * *class method.
+		 * ? Or make them virtual, let compiler call them
+		 * ? based on account type. 
+		 * ! Revise the concepts of virtual, polymorphism.
+		 */
 };
 
 class checking_account: public saving_account {
