@@ -129,6 +129,7 @@ class Bank_account {
 
 		double monthlyBill( double ChargesPerMonth ) {
 			monthlyCharges = totalWithdraws * ChargesPerMonth;
+			accountBalance -=monthlyCharges;
 			// Time for calculating monthly interest
 			calculateInterest();
 			reset_afterMonth();
