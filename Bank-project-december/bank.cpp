@@ -88,6 +88,8 @@ class Bank_account {
 			/**
 			 * TODO: Validate input
 			 * TODO: Add loop to enforce user
+			 * TODO: PRINT reason instead of just returning
+			 * TODO: in deposit and withdraw methods.
 			 */
 		}
 		
@@ -162,8 +164,29 @@ class Saving_account : public Bank_account {
 			chargesPerWithdraw = 0.0;
 		}
 
-		bool accountStatus() 
+		bool accountStatus( double currentBalance ) {
+			if ( currentBalance > 25 )
+				return true;
+			else
+				return false;
+		} 
 
+		bool withdraw( int withdrawAmount ) {
+			if ( accountStatus( accountBalance ) ) {
+				if ( !Bank_account::withdraw( withdrawAmount )) {
+					cout << "\nCouldn't process your request.";
+					cout << "\nPlease try again.";
+					return false;
+				} else 
+					return true;
+			} else {
+				cout << "\nYour account has been inactive, "
+					 << "Due to lower balance than 25$."
+				cout << "\nPlease add some balance to re-"
+					 << "activate your account.";
+				return false;
+			}
+		}
 };
 
 class checking_account: public saving_account {
