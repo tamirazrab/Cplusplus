@@ -12,6 +12,13 @@
  */
 #include<iostream>
 
+/**
+ * *Macros area
+ * ? Right percentage will be decided later
+ */
+
+#define CHARGE_PER_WITHDRAW 0.03
+
 using namespace std;
 int w_inc = 0, t_w = 0;
 int d_inc = 0;
@@ -112,6 +119,22 @@ class Bank_account {
 			accountBalance += monthlyInterest;
 		}
 		
+		void monthlyBill() {
+			monthlyCharges = totalWithdraws * CHARGE_PER_WITHDRAW;
+			// Time for calculating monthly interest
+			calculateInterest();
+			reset_afterMonth();
+		}
+
+		// like month ended begin variables for
+		// next month, resetting the previous month data
+		void reset_afterMonth() {
+			totalWithdraws = 0;
+			totalDeposit = 0;
+			depositCounter, withdrawCounter = 0;
+			monthlyCharges = 0;
+		}
+
 };
 
 int bank_account::balances = 0;
