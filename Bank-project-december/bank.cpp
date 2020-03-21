@@ -127,11 +127,12 @@ class Bank_account {
 			return monthlyInterest;
 		}
 
-		void monthlyBill() {
-			monthlyCharges = totalWithdraws * CHARGE_PER_WITHDRAW;
+		double monthlyBill( double ChargesPerMonth ) {
+			monthlyCharges = totalWithdraws * ChargesPerMonth;
 			// Time for calculating monthly interest
 			calculateInterest();
 			reset_afterMonth();
+			return monthlyCharges;
 		}
 
 		void monthlyReport() {
@@ -142,6 +143,7 @@ class Bank_account {
 				 << "\nTotal amount deposited : " << totalDeposit;
 			
 			cout << "\nYou've earned $" << getMonthlyInterest() << " for having $" << accountBalance << " balance.\n";
+			cout << "\nMonthly charges for this month $" << monthlyBill() << ".";
 		}
 
 		// like month ended begin variables for
