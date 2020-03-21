@@ -1,7 +1,7 @@
 /**
  * @file bank.cpp
  * @author Unknown
- * @improved by Tamir
+ * @improved by: Tamir
  * @brief - Simple bank proejct with basic deposit 
  *  and withdrawal operations nothing special really.
  * @version 0.1
@@ -30,51 +30,47 @@ int t_d = 0;
 	*If it is, why does there is a need for storing total amount
 	 deposited and withdrawed? Why is it benefical?
  */
-class bank_account {
-	protected:
-		int monthly_services_charge;
-	int monthly_fee;
-	int status;
-	static int balances;
-	int no_of_deposite_this_month;
-	int no_of_withdraw;
-	int annual_interest_rate;
-	public:
-		bank_account() {}
-	bank_account(int b, int a) {
-		balances = b;
-		annual_interest_rate = a;
-	}
-	void deposite(int amount_of_deposite) {
 
-		balances = amount_of_deposite + balances;
-		d_inc++;
-		t_d = t_d + amount_of_deposite;
-	}
-	int withdraw(int amount_of_withdraw) {
-		balances = balances - amount_of_withdraw;
-		w_inc++;
-		t_w = t_w + amount_of_withdraw;
-		return t_w;
-	}
-	virtual void calclnt() {
-		int monthly_interest_rate = (annual_interest_rate / 12);
-		int monthly_interest = (balances * monthly_interest_rate);
-		balances = balances + monthly_interest;
-	}
-	virtual void monthlyproc() {
-		balances = monthly_services_charge - balances;
-		calclnt();
-		w_inc = 0;
-		d_inc = 0;
-		monthly_services_charge = 0;
-	}
-	void summary() {
-		cout << "balance =" << balances << endl;
-		cout << "no. of width draws =" << w_inc << endl;
-		cout << "no.of deposit =:" << d_inc << endl;
-	}
+class Bank_account {
+	/** 
+	 * TODO: deposit and withdraw methods
+	 * TODO: validation of arguments
+	 * TODO: deposit and withdraw counters
+	 * TODO: hold total deposited and withdrawed amount
+	 * TODO: Calculate interest and monthly charges
+	 * TODO: Display account summary for this month
+	 * 
+	*/
+	private:
+		double accountBalance;
+		double totalDeposit, totalWithdraws;
+		int depositCounter, withdrawCounter;
+	public:
+		bool deposit( double depositAmount ) {
+			if ( depositAmount <= 0 )
+				return false;
+			else {
+				accountBalance += depositAmount;
+				totalDeposit += depositAmount;
+				depositCounter++;
+			}		
+			return true;
+		}
+
+		bool withdraw ( double withdrawAmount ) {
+			if ( withdrawAmount <= 0 )
+				return false;
+			else if ( withdrawAmount > accountBalance ) {
+				cout << "You don't have enough balance.\n";
+				return false;
+			} else {
+				accountBalance -= withdrawAmount;
+				totalWithdraws += withdrawAmount;
+				withdrawCounter++;
+			}
+		}
 };
+
 int bank_account::balances = 0;
 class saving_account: public bank_account {
 	public: saving_account() {}
