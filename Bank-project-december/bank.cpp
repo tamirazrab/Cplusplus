@@ -119,11 +119,25 @@ class Bank_account {
 			accountBalance += monthlyInterest;
 		}
 		
+		void getMonthlyInterest() {
+			return monthlyInterest;
+		}
+
 		void monthlyBill() {
 			monthlyCharges = totalWithdraws * CHARGE_PER_WITHDRAW;
 			// Time for calculating monthly interest
 			calculateInterest();
 			reset_afterMonth();
+		}
+
+		void monthlyReport() {
+			cout << "\nYour current balance is: $" << accountBalance
+				 << "\nTotal withdraws made : " << withdrawCounter
+				 << "\nTotal amount withdrawed : $" << totalWithdraws
+				 << "\nTotal Deposit made : " << depositCounter
+				 << "\nTotal amount deposited : " << totalDeposit;
+			
+			cout << "\nYou've earned $" << getMonthlyInterest() << " for having $" << accountBalance << " balance.\n";
 		}
 
 		// like month ended begin variables for
