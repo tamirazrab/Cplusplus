@@ -127,6 +127,10 @@ class Bank_account {
 			return monthlyInterest;
 		}
 
+		double getMonthlyCharges() {
+			return monthlyCharges;
+		}
+
 		double monthlyBill( double ChargesPerMonth ) {
 			// *ChargesPerMonth actually denotes
 			// *Charges per withdraw , like percent of amount
