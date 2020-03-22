@@ -94,7 +94,7 @@ class Bank_account {
 			return getAnnualIntRate;
 		}
 		
-		bool deposit( double depositAmount ) {
+		virtual bool deposit( double depositAmount ) {
 			if ( depositAmount <= 0 ) {
 					cout << "You've entered invalid deposit amount $." << endl;
 					cout << "Exiting from the process, please redo if you wish $." << endl;
@@ -108,7 +108,7 @@ class Bank_account {
 			return true;
 		}
 
-		bool withdraw ( double withdrawAmount ) {
+		virtual bool withdraw ( double withdrawAmount ) {
 			if ( withdrawAmount <= 0 ) {
 					cout << "You've entered invalid withdraw amount $." << endl;
 					cout << "Exiting from the process, please redo if you wish $." << endl;
@@ -188,7 +188,7 @@ class Saving_account : public Bank_account {
 				return false;
 		} 
 
-		bool withdraw( int withdrawAmount ) {
+		bool withdraw ( int withdrawAmount ) override {
 			if ( accountStatus( accountBalance ) ) {
 				if ( !Bank_account::withdraw( withdrawAmount )) {
 					cout << "\nCouldn't process your request.";
@@ -215,6 +215,28 @@ class Saving_account : public Bank_account {
 		 * ? based on account type. 
 		 * ! Revise the concepts of virtual, polymorphism.
 		 */
+
+		/**
+		 * ! No now it makes sense to create deposit function
+		 * ! As parent class got virtual functions need to implement
+		 * ! them here too. 
+		 * *I'll add some different operations in deposit function
+		 * * Later.
+		 * TODO: Add some different functionality in deposit func
+		 * TODO: of saving class.
+		 */
+
+		bool deposit( int depositAmount ) override {
+			/**
+			 * *Calling parent class function just now
+			 * TODO: Some more actions for this function.
+			 */
+			if ( !Bank_account::deposit( depositAmount ) ) {
+				cout << "\nCouldn't process the request.\n";
+				return false;
+			} else
+				return true;
+		}
 
 		void saving_monthlyBill() {
 			/**
