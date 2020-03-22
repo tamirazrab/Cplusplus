@@ -25,6 +25,9 @@ using namespace std;
  * ! Future TODO list
  * TODO: Calculating interest for different classes differently
  * TODO: ..based on different annual interest rate for them.
+ * *Project finished 3/23/2020 - 12:09AM 
+ * *Just some polishing up and making code efficient remaining
+ * *It's performing it's functionality correctly just need now to implement new features.
  * 
  */
 
