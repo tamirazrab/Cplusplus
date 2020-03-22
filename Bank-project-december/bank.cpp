@@ -20,22 +20,12 @@
 #define CHARGE_PER_WITHDRAW 0.03
 
 using namespace std;
-int w_inc = 0, t_w = 0;
-int d_inc = 0;
-int t_d = 0;
-/*
- 	t_d -> Total deposit, contains amount deposited in total
- 	t_w -> Total withdraw, holds amount withdrawed from bank
- 	d_inc -> Deposit increment, increments every time deposit
-		  	*is made.
-	w_inc -> Withdraw increment, increments every time withdraw
-			*is made.
-	
-	*Why they made globally? Why not inside parent class and use
-	 them in class inheriting from parent class.
-	*Why is it necessary to track these records?
-	*If it is, why does there is a need for storing total amount
-	 deposited and withdrawed? Why is it benefical?
+
+/**
+ * ! Future TODO list
+ * TODO: Calculating interest for different classes differently
+ * TODO: ..based on different annual interest rate for them.
+ * 
  */
 
 class Bank_account {
