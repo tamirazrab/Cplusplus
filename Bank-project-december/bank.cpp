@@ -340,9 +340,10 @@ int main() {
 	// Basic Menu
 	do {	
 		do {
+			system('cls');
 			cout << "\tBank System - Menu\n" <<
-				"1- Deposit" << "2- Withdraw" <<
-				"3- Account Summary" << "4- Exit\n";
+				"\t1- Deposit\n" << "\t2- Withdraw\n" <<
+				"\t3- Account Summary\n" << "\t4- Exit\n";
 			cout << "Enter your choice: ";
 			cin >> userChoice;
 			// Validation of user choice
