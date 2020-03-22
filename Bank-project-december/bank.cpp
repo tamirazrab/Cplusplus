@@ -300,7 +300,18 @@ class Checking_account : public Bank_account {
 
 };
 
-void getAccountType( Bank_account* ptr ) {
+/**
+ * @brief Making problems
+ * ! It got problems not assigning the memory to ptr
+ * ! Works if concluded from function and directly implement
+ * ! it in main func.
+ * *Need to look solution for it.
+ * TODO: Find solution and reason of problem occuring.
+ * @param ptr 
+ * @return Bank_account 
+ */
+/*
+Bank_account getAccountType( Bank_account* ptr ) {
 	int accountType = 0;
 	do {
 		cout << "Please read account type and select one for your account.\n";
@@ -321,10 +332,28 @@ void getAccountType( Bank_account* ptr ) {
 		break;
 	}
 }
-
+*/
 int main() {
 	Bank_account* ptr = NULL;
-	getAccountType( ptr );
+	int accountType = 0;
+	do {
+		cout << "Please read account type and select one for your account.\n";
+		cout << "1- Normal account\n2- Saving Account\n3- Checking Account\n";
+		cout << "Enter account type please : ";
+		cin >> accountType;
+	} while ( accountType <= 0 || accountType > 3 );
+	// Assigning bank class pointer object memory according to account type
+	switch (accountType) {
+	case 1:
+		ptr = new Bank_account();
+		break;
+	case 2:
+		ptr = new Saving_account();
+		break;
+	case 3:
+		ptr = new Checking_account();
+		break;
+	}
 	int userChoice = 0;
 	bool validate_choice = false, exitSignal = true;
 	bool tryAgain = false;
@@ -340,7 +369,7 @@ int main() {
 	// Basic Menu
 	do {	
 		do {
-			system('cls');
+			system("cls");
 			cout << "\tBank System - Menu\n" <<
 				"\t1- Deposit\n" << "\t2- Withdraw\n" <<
 				"\t3- Account Summary\n" << "\t4- Exit\n";
