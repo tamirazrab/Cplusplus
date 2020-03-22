@@ -337,10 +337,13 @@ int main() {
 
 		} while (validate_choice);
 		// methods call based on input
-		switch (expression) {
+		switch ( userChoice ) {
 			case 1:
 			do {
-				if (!ptr->deposit()) {
+				cout << "\nEnter amount to deposit $: ";
+				int depositAmount = 0;
+				cin >> depositAmount;
+				if (!ptr->deposit( depositAmount )) {
 					cout << "\nCouldn't deposit, Do you want to try again? Y/N :";
 					cin >> tryAgainChoice;
 					if ( tryAgainChoice == 'n' || tryAgainChoice == 'N')
@@ -353,7 +356,10 @@ int main() {
 			break;
 			case 2:
 				do {
-				if (!ptr->withdraw()) {
+				cout << "Enter amount to withdraw $: ";
+				int withdrawAmount = 0;
+				cin >> withdrawAmount;
+				if (!ptr->withdraw(withdrawAmount)) {
 					cout << "\nCouldn't withdraw, Do you want to try again? Y/N :";
 					cin >> tryAgainChoice;
 					if ( tryAgainChoice == 'n' || tryAgainChoice == 'N')
@@ -366,7 +372,8 @@ int main() {
 			break;
 
 			case 3:
-				ptr->monthlyReport();
+				double monthlyCharges = ptr->monthlyBill();
+				ptr->monthlyReport( monthlyCharges );
 			break;
 
 			case 4:
