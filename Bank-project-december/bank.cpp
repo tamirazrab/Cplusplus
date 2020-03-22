@@ -127,7 +127,7 @@ class Bank_account {
 			return monthlyInterest;
 		}
 
-		double getMonthlyCharges() {
+		virtual double getMonthlyCharges() {
 			return monthlyCharges;
 		}
 
@@ -175,6 +175,11 @@ class Saving_account : public Bank_account {
 			chargesPerWithdraw = 0.03;
 		}
 
+		double getMonthlyCharges() {
+			return monthlyCharges;
+		}
+
+	
 		bool accountStatus( double currentBalance ) {
 			if ( currentBalance > 25 )
 				return true;
@@ -236,6 +241,8 @@ class Saving_account : public Bank_account {
 			/**
 			 * TODO: Think about solving monthlyReport function interjunction of monthlyBill function call in it.
 			 * TODO: Think about why saved monthlyCharges of saving account? What's the use of it.
+			 * *Saved because it is required in generating monthly report got answer while making implementation
+			 * *of main func.
 			 * 
 			 */
 			if ( withdrawCounter > 4 ) {
@@ -260,6 +267,11 @@ class Checking_account : public Bank_account {
 			serviceCharges , monthlyCharges = 0.0;
 			checking_chargesPerWithdraw = 0.10;
 		}
+
+		double getMonthlyCharges() {
+			return monthlyCharges;
+		}
+
 
 		// *Below function doesn't make a still sense
 		// *But as original author made it, I'd make it
