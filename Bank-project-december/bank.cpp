@@ -94,6 +94,7 @@ class Bank_account {
 				totalDeposit += depositAmount;
 				depositCounter++;
 				cout << "Your account balance has been sucessfully updated $.\n";
+				printCurrentBalance();
 			}		
 			return true;
 		}
@@ -113,6 +114,7 @@ class Bank_account {
 				withdrawCounter++;
 				cout << "You've sucessfully withdrawed amount $.\n"
 					 << "Amount has been deducted from your balance.\n";
+				printCurrentBalance();
 			}
 			return true;
 		}
@@ -120,7 +122,6 @@ class Bank_account {
 		void calculateInterest() {
 			monthlyInterestRate = ( annualInterestRate / 12.0 );
 			monthlyInterest = monthlyInterestRate * accountBalance;
-			accountBalance += monthlyInterest;
 		}
 		
 		double getMonthlyInterest() {
@@ -139,8 +140,11 @@ class Bank_account {
 			accountBalance -=monthlyCharges;
 			// Time for calculating monthly interest
 			calculateInterest();
-			reset_afterMonth();
 			return monthlyCharges;
+		}
+
+		void printCurrentBalance() {
+			cout << "\nYour new balance is : $" << accountBalance << "\n";
 		}
 
 		void monthlyReport( double monthlyCharges ) {
@@ -151,7 +155,9 @@ class Bank_account {
 				 << "\nTotal amount deposited : " << totalDeposit;
 			
 			cout << "\nYou've earned $" << getMonthlyInterest() << " for having $" << accountBalance << " balance.\n";
-			cout << "\nMonthly charges for this month $" << /* monthlyBill(CHARGE_PER_WITHDRAW) */ monthlyCharges << ".";
+			accountBalance += monthlyInterest;
+			printCurrentBalance();
+			cout << "\nMonthly charges for this month $" << /* monthlyBill(CHARGE_PER_WITHDRAW) */ monthlyCharges << ".\n";
 			// *Charges per month for bank class are fixed.
 		}
 
@@ -371,8 +377,9 @@ int main() {
 		do {
 			cout << "\tBank System - Menu\n" <<
 				"\t1- Deposit\n" << "\t2- Withdraw\n" <<
-				"\t3- Account Summary\n" << "\t4- Exit\n"
-				<< "5- Clear Screen\n";
+				"\t3- Account Summary\n" 
+				<< "\t4-Reset Status\n" << "\t5- Exit\n"
+				<< "\t6- Clear Screen\n";
 			cout << "Enter your choice: ";
 			cin >> userChoice;
 			// Validation of user choice
