@@ -91,30 +91,40 @@ class Bank_account {
 			 * TODO: PRINT reason instead of just returning
 			 * TODO: in deposit and withdraw methods.
 			 */
+			return getAnnualIntRate;
 		}
 		
 		bool deposit( double depositAmount ) {
-			if ( depositAmount <= 0 )
-				return false;
-			else {
+			if ( depositAmount <= 0 ) {
+					cout << "You've entered invalid deposit amount $." << endl;
+					cout << "Exiting from the process, please redo if you wish $." << endl;
+					return false;
+			} else {
 				accountBalance += depositAmount;
 				totalDeposit += depositAmount;
 				depositCounter++;
+				cout << "Your account balance has been sucessfully updated $.\n";
 			}		
 			return true;
 		}
 
 		bool withdraw ( double withdrawAmount ) {
-			if ( withdrawAmount <= 0 )
-				return false;
-			else if ( withdrawAmount > accountBalance ) {
+			if ( withdrawAmount <= 0 ) {
+					cout << "You've entered invalid withdraw amount $." << endl;
+					cout << "Exiting from the process, please redo if you wish $." << endl;
+					return false;
+			} else if ( withdrawAmount > accountBalance ) {
 				cout << "You don't have enough balance.\n";
+				cout << "Action cannot be performed.\n";
 				return false;
 			} else {
 				accountBalance -= withdrawAmount;
 				totalWithdraws += withdrawAmount;
 				withdrawCounter++;
+				cout << "You've sucessfully withdrawed amount $.\n"
+					 << "Amount has been deducted from your balance.\n";
 			}
+			return true;
 		}
 
 		void calculateInterest() {
