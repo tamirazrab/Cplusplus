@@ -133,16 +133,15 @@ class Bank_account {
 			return monthlyCharges;
 		}
 
-		double getChargesPerMonth() {
+		virtual double getChargesPerMonth() {
 			return chargesPerWithdraw;
 		}
 
-		double monthlyBill( double ChargesPerMonth ) {
+		virtual double monthlyBill( double ChargesPerMonth ) {
 			// *ChargesPerMonth actually denotes
 			// *Charges per withdraw , like percent of amount
 			// *withdrawed from account.
 			monthlyCharges = totalWithdraws * ChargesPerMonth;
-			accountBalance -=monthlyCharges;
 			// Time for calculating monthly interest
 			calculateInterest();
 			return monthlyCharges;
@@ -152,7 +151,7 @@ class Bank_account {
 			cout << "\nYour new balance is : $" << accountBalance << "\n";
 		}
 
-		void monthlyReport( double monthlyCharges ) {
+		virtual void monthlyReport( double monthlyCharges ) {
 			cout << "\nYour current balance is: $" << accountBalance
 				 << "\nTotal withdraws made : " << withdrawCounter
 				 << "\nTotal amount withdrawed : $" << totalWithdraws
@@ -161,9 +160,10 @@ class Bank_account {
 			
 			cout << "\nYou've earned $" << getMonthlyInterest() << " for having $" << accountBalance << " balance.\n";
 			accountBalance += monthlyInterest;
-			printCurrentBalance();
 			cout << "\nMonthly charges for this month $" << /* monthlyBill(CHARGE_PER_WITHDRAW) */ monthlyCharges << ".\n";
 			// *Charges per month for bank class are fixed.
+			accountBalance -=monthlyCharges;
+			printCurrentBalance();
 		}
 
 		// like month ended begin variables for
@@ -194,6 +194,10 @@ class Saving_account : public Bank_account {
 
 		double getMonthlyCharges() {
 			return monthlyCharges;
+		}
+
+		double getChargesPerMonth() {
+			return chargesPerWithdraw;
 		}
 
 		void reset_afterMonth() {
@@ -257,7 +261,7 @@ class Saving_account : public Bank_account {
 				return true;
 		}
 
-		void saving_monthlyBill() {
+		double monthlyBill( double currentChargesPerWithdraw) {
 			/**
 			 * TODO: Think about solving monthlyReport function interjunction of monthlyBill function call in it.
 			 * TODO: Think about why saved monthlyCharges of saving account? What's the use of it.
@@ -271,10 +275,13 @@ class Saving_account : public Bank_account {
 					 << "service charges for each withdraw "
 					 << "is now " << chargesPerWithdraw * 0.02 
 					 << " percent.\n";
-				chargesPerWithdraw *= 0.02;
+				// doubling charge fee
+				currentChargesPerWithdraw *= 0.2;
 				monthlyCharges = Bank_account::monthlyBill( chargesPerWithdraw );
-				Bank_account::monthlyReport( monthlyCharges );
+				// Bank_account::monthlyReport( monthlyCharges );
 			}
+
+			return monthlyCharges;
 		}
 };
 
@@ -310,15 +317,18 @@ class Checking_account : public Bank_account {
 					accountBalance -= serviceCharges;
 		}
 
-		void checkingMonthlyReport() {
-			monthlyCharges = Bank_account::monthlyBill( checking_chargesPerWithdraw );
-			serviceCharges = monthlyCharges;
+		double getChargesPerMonth() {
+			return checking_chargesPerWithdraw;
+		}
+
+		void monthlyReport ( double checkingMonthlyCharges ) {
+			serviceCharges = checkingMonthlyCharges;
 			/** 
 			 * TODO: monthlyReport is calling monthlyBill in it
 			 * TODO: think about how to resolve the conflicts
 			 * TODO: when don't want it to be called in monthly report.
 			*/
-			Bank_account::monthlyReport( monthlyCharges );
+			Bank_account::monthlyReport( checkingMonthlyCharges );
 			cout << "\nService Charges for this month : $" << serviceCharges;
 		}
 
