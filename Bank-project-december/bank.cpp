@@ -187,7 +187,7 @@ class Saving_account : public Bank_account {
 				return false;
 		} 
 
-		bool withdraw ( double withdrawAmount ) override {
+		bool withdraw ( double withdrawAmount ) /* override */ {
 			if ( accountStatus( accountBalance ) ) {
 				if ( !Bank_account::withdraw( withdrawAmount )) {
 					cout << "\nCouldn't process your request.";
@@ -225,7 +225,7 @@ class Saving_account : public Bank_account {
 		 * TODO: of saving class.
 		 */
 
-		bool deposit( double depositAmount ) override {
+		bool deposit( double depositAmount ) /* override */ {
 			/**
 			 * *Calling parent class function just now
 			 * TODO: Some more actions for this function.
@@ -328,7 +328,9 @@ int main() {
 	int userChoice = 0;
 	bool validate_choice = false, exitSignal = true;
 	bool tryAgain = false;
-	char tryAgainChoice = '/0';
+	char tryAgainChoice = '\0';
+	double monthlyCharges;
+	int depositAmount = 0 , withdrawAmount = 0;
 	/**
 	 * TODO: Think about adjusting account type
 	 * TODO: Creating appropriate class object through parent class
@@ -357,7 +359,7 @@ int main() {
 			case 1:
 			do {
 				cout << "\nEnter amount to deposit $: ";
-				int depositAmount = 0;
+				depositAmount = 0;
 				cin >> depositAmount;
 				if (!ptr->deposit( depositAmount )) {
 					cout << "\nCouldn't deposit, Do you want to try again? Y/N :";
@@ -373,7 +375,7 @@ int main() {
 			case 2:
 				do {
 				cout << "Enter amount to withdraw $: ";
-				int withdrawAmount = 0;
+				withdrawAmount = 0;
 				cin >> withdrawAmount;
 				if (!ptr->withdraw(withdrawAmount)) {
 					cout << "\nCouldn't withdraw, Do you want to try again? Y/N :";
@@ -388,7 +390,7 @@ int main() {
 			break;
 
 			case 3:
-				double monthlyCharges = ptr->monthlyBill( ptr->getMonthlyCharges() );
+				monthlyCharges = ptr->monthlyBill( ptr->getMonthlyCharges() );
 				ptr->monthlyReport( monthlyCharges );
 			break;
 
