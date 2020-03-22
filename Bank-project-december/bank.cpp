@@ -273,11 +273,11 @@ class Saving_account : public Bank_account {
 				cout << "\nYou've had four withdraws, "
 					 << "You've 5th withdraw this month, "
 					 << "service charges for each withdraw "
-					 << "is now " << chargesPerWithdraw * 0.02 
+					 << "is now " << chargesPerWithdraw * 0.2 
 					 << " percent.\n";
 				// doubling charge fee
 				currentChargesPerWithdraw *= 0.2;
-				monthlyCharges = Bank_account::monthlyBill( chargesPerWithdraw );
+				monthlyCharges = Bank_account::monthlyBill( currentChargesPerWithdraw );
 				// Bank_account::monthlyReport( monthlyCharges );
 			}
 
@@ -430,9 +430,9 @@ int main() {
 					cout << "\nCouldn't deposit, Do you want to try again? Y/N :";
 					cin >> tryAgainChoice;
 					if ( tryAgainChoice == 'n' || tryAgainChoice == 'N')
-						tryAgainChoice = false;
+						tryAgain = false;
 					else
-						tryAgainChoice = true;
+						tryAgain = true;
 				}
 			} while( tryAgain );
 				
@@ -446,9 +446,9 @@ int main() {
 					cout << "\nCouldn't withdraw, Do you want to try again? Y/N :";
 					cin >> tryAgainChoice;
 					if ( tryAgainChoice == 'n' || tryAgainChoice == 'N')
-						tryAgainChoice = false;
+						tryAgain= = false;
 					else
-						tryAgainChoice = true;
+						tryAgain= = true;
 				}
 			} while( tryAgain );
 			
