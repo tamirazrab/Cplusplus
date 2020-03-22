@@ -42,7 +42,7 @@ class Bank_account {
 		double accountBalance;
 		int depositCounter, withdrawCounter;
 	private:
-		
+		double chargesPerWithdraw;
 		double totalDeposit, totalWithdraws;
 		double annualInterestRate, monthlyInterestRate;
 		double monthlyInterest , monthlyCharges;
@@ -58,6 +58,7 @@ class Bank_account {
 			annualInterestRate = init();
 			monthlyInterestRate = 0.0;
 			monthlyInterest = 0, monthlyCharges = 0;
+			chargesPerWithdraw = 0.04;
 		}
 
 		double init() {
@@ -132,6 +133,10 @@ class Bank_account {
 			return monthlyCharges;
 		}
 
+		double getChargesPerMonth() {
+			return chargesPerWithdraw;
+		}
+
 		double monthlyBill( double ChargesPerMonth ) {
 			// *ChargesPerMonth actually denotes
 			// *Charges per withdraw , like percent of amount
@@ -152,7 +157,7 @@ class Bank_account {
 				 << "\nTotal withdraws made : " << withdrawCounter
 				 << "\nTotal amount withdrawed : $" << totalWithdraws
 				 << "\nTotal Deposit made : " << depositCounter
-				 << "\nTotal amount deposited : " << totalDeposit;
+				 << "\nTotal amount deposited : $" << totalDeposit;
 			
 			cout << "\nYou've earned $" << getMonthlyInterest() << " for having $" << accountBalance << " balance.\n";
 			accountBalance += monthlyInterest;
@@ -440,7 +445,7 @@ int main() {
 			break;
 
 			case 3:
-				monthlyCharges = ptr->monthlyBill( ptr->getMonthlyCharges() );
+				monthlyCharges = ptr->monthlyBill( ptr->getChargesPerMonth() );
 				ptr->monthlyReport( monthlyCharges );
 			break;
 
