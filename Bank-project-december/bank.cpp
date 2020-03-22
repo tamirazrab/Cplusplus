@@ -163,7 +163,7 @@ class Bank_account {
 
 		// like month ended begin variables for
 		// next month, resetting the previous month data
-		void reset_afterMonth() {
+		virtual void reset_afterMonth() {
 			totalWithdraws = 0;
 			totalDeposit = 0;
 			depositCounter, withdrawCounter = 0;
@@ -171,6 +171,12 @@ class Bank_account {
 		}
 
 };
+
+/**
+ * TODO: Implementation of reset account function for
+ * TODO: other saving and checking accounts too.
+ * 
+ */
 
 class Saving_account : public Bank_account {
 	private:
@@ -185,6 +191,9 @@ class Saving_account : public Bank_account {
 			return monthlyCharges;
 		}
 
+		void reset_afterMonth() {
+			monthlyCharges = 0;
+		}
 	
 		bool accountStatus( double currentBalance ) {
 			if ( currentBalance > 25 )
@@ -278,6 +287,10 @@ class Checking_account : public Bank_account {
 			return monthlyCharges;
 		}
 
+		void reset_afterMonth() {
+			serviceCharges = 0;
+			monthlyCharges = 0;
+		}
 
 		// *Below function doesn't make a still sense
 		// *But as original author made it, I'd make it
@@ -383,7 +396,7 @@ int main() {
 			cout << "Enter your choice: ";
 			cin >> userChoice;
 			// Validation of user choice
-			if (userChoice <= 0 || userChoice > 5) {
+			if (userChoice <= 0 || userChoice > 6) {
 				cout << "Error: You've entered invalid choice.\n" <<
 					"Please enter correct choice.\n";
 				validate_choice = true;
@@ -427,11 +440,15 @@ int main() {
 			break;
 
 			case 3:
+				ptr->reset_afterMonth();
+			break;
+
+			case 4:
 				monthlyCharges = ptr->monthlyBill( ptr->getMonthlyCharges() );
 				ptr->monthlyReport( monthlyCharges );
 			break;
 
-			case 4:
+			case 5:
 				cout << "\n Thank you for using \n" <<
 					"Have a good day.\n";
 				exitSignal = false;
