@@ -256,6 +256,8 @@ class Checking_account : public Bank_account {
 			 * TODO: think about how to resolve the conflicts
 			 * TODO: when don't want it to be called in monthly report.
 			*/
+			Bank_account::monthlyReport( monthlyCharges );
+			cout << "\nService Charges for this month : $" << serviceCharges;
 		}
 
 };
