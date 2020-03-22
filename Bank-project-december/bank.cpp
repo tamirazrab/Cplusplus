@@ -284,8 +284,7 @@ class Checking_account : public Bank_account {
 
 };
 
-int main() {
-	Bank_account* ptr = NULL;
+void getAccountType( Bank_account* ptr ) {
 	int accountType = 0;
 	do {
 		cout << "Please read account type and select one for your account.\n";
@@ -304,11 +303,16 @@ int main() {
 	case 3:
 		ptr = new Checking_account();
 		break;
-	default:
-		break;
 	}
+}
+
+int main() {
+	Bank_account* ptr = NULL;
+	getAccountType( ptr );
 	int userChoice = 0;
 	bool validate_choice = false, exitSignal = true;
+	bool tryAgain = false;
+	char tryAgainChoice = '/0';
 	/**
 	 * TODO: Think about adjusting account type
 	 * TODO: Creating appropriate class object through parent class
@@ -316,8 +320,7 @@ int main() {
 	 * TODO: Finishing things up, testing.
 	 */
 	// Basic Menu
-	do {
-		
+	do {	
 		do {
 			cout << "\tBank System - Menu\n" <<
 				"1- Deposit" << "2- Withdraw" <<
@@ -335,15 +338,35 @@ int main() {
 		} while (validate_choice);
 		// methods call based on input
 		switch (expression) {
-			case /* constant-expression */ :
-			/* code */
+			case 1:
+			do {
+				if (!ptr->deposit()) {
+					cout << "\nCouldn't deposit, Do you want to try again? Y/N :";
+					cin >> tryAgainChoice;
+					if ( tryAgainChoice == 'n' || tryAgainChoice == 'N')
+						tryAgainChoice = false;
+					else
+						tryAgainChoice = true;
+				}
+			} while( tryAgain );
+				
 			break;
-			case /* constant-expression */ :
-			/* code */
+			case 2:
+				do {
+				if (!ptr->withdraw()) {
+					cout << "\nCouldn't withdraw, Do you want to try again? Y/N :";
+					cin >> tryAgainChoice;
+					if ( tryAgainChoice == 'n' || tryAgainChoice == 'N')
+						tryAgainChoice = false;
+					else
+						tryAgainChoice = true;
+				}
+			} while( tryAgain );
+			
 			break;
 
-			case /* constant-expression */ :
-			/* code */
+			case 3:
+				ptr->monthlyReport();
 			break;
 
 			case 4:
