@@ -322,7 +322,7 @@ class Checking_account : public Bank_account {
 		}
 
 		void monthlyReport ( double checkingMonthlyCharges ) {
-			serviceCharges = checkingMonthlyCharges;
+			serviceCharges = checkingMonthlyCharges + ( Bank_account::withdrawCounter * getChargesPerMonth());
 			/** 
 			 * TODO: monthlyReport is calling monthlyBill in it
 			 * TODO: think about how to resolve the conflicts
@@ -446,9 +446,9 @@ int main() {
 					cout << "\nCouldn't withdraw, Do you want to try again? Y/N :";
 					cin >> tryAgainChoice;
 					if ( tryAgainChoice == 'n' || tryAgainChoice == 'N')
-						tryAgain= = false;
+						tryAgain = false;
 					else
-						tryAgain= = true;
+						tryAgain = true;
 				}
 			} while( tryAgain );
 			
