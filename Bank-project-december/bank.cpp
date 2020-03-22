@@ -275,6 +275,12 @@ class Checking_account : public Bank_account {
 int main() {
 	int userChoice = 0;
 	bool validate_choice = false, exitSignal = true;
+	/**
+	 * TODO: Think about adjusting account type
+	 * TODO: Creating appropriate class object through parent class
+	 * TODO: Calling appropriate methods according to it
+	 * TODO: Finishing things up, testing.
+	 */
 	// Basic Menu
 	do {
 		
