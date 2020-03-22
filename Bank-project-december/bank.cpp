@@ -139,7 +139,7 @@ class Bank_account {
 			return monthlyCharges;
 		}
 
-		void monthlyReport() {
+		void monthlyReport( double monthlyCharges ) {
 			cout << "\nYour current balance is: $" << accountBalance
 				 << "\nTotal withdraws made : " << withdrawCounter
 				 << "\nTotal amount withdrawed : $" << totalWithdraws
@@ -147,7 +147,7 @@ class Bank_account {
 				 << "\nTotal amount deposited : " << totalDeposit;
 			
 			cout << "\nYou've earned $" << getMonthlyInterest() << " for having $" << accountBalance << " balance.\n";
-			cout << "\nMonthly charges for this month $" << monthlyBill(CHARGE_PER_WITHDRAW) << ".";
+			cout << "\nMonthly charges for this month $" << /* monthlyBill(CHARGE_PER_WITHDRAW) */ monthlyCharges << ".";
 			// *Charges per month for bank class are fixed.
 		}
 
@@ -220,6 +220,7 @@ class Saving_account : public Bank_account {
 					 << " percent.\n";
 				chargesPerWithdraw *= 0.02;
 				monthlyCharges = Bank_account::monthlyBill( chargesPerWithdraw );
+				Bank_account::monthlyReport( monthlyCharges );
 			}
 		}
 };
@@ -238,9 +239,23 @@ class Checking_account : public Bank_account {
 		// *But as original author made it, I'd make it
 		// *with some modifications ofcourse but logic
 		// *of it still isn't clear to me
-		void withdraw( int withdrawCounter ) {
-			if ( accountBalance - withdrawCounter < 0 )
-				accountBalance -= serviceCharges;
+		// *I think i got what author wanted, 
+		// *Service charges should be applied if withdraws
+		// *made are more than current balance
+		void deductServiceCharges( int withdrawCounter ) {
+			//  ? if ( accountBalance - withdrawCounter < 0 )
+				if ( withdrawCounter > accountBalance )
+					accountBalance -= serviceCharges;
+		}
+
+		void checkingMonthlyReport() {
+			monthlyCharges = Bank_account::monthlyBill( checking_chargesPerWithdraw );
+			serviceCharges = monthlyCharges;
+			/** 
+			 * TODO: monthlyReport is calling monthlyBill in it
+			 * TODO: think about how to resolve the conflicts
+			 * TODO: when don't want it to be called in monthly report.
+			*/
 		}
 
 };
