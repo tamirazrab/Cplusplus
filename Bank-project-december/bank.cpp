@@ -273,6 +273,28 @@ class Checking_account : public Bank_account {
 };
 
 int main() {
+	Bank_account* ptr = NULL;
+	int accountType = 0;
+	do {
+		cout << "Please read account type and select one for your account.\n";
+		cout << "1- Normal account\n2- Saving Account\n3- Checking Account\n";
+		cout << "Enter account type please : ";
+		cin >> accountType;
+	} while ( accountType <= 0 || accountType > 3 );
+	// Assigning bank class pointer object memory according to account type
+	switch (accountType) {
+	case 1:
+		ptr = new Bank_account();
+		break;
+	case 2:
+		ptr = new Saving_account();
+		break;
+	case 3:
+		ptr = new Checking_account();
+		break;
+	default:
+		break;
+	}
 	int userChoice = 0;
 	bool validate_choice = false, exitSignal = true;
 	/**
