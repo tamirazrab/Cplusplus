@@ -178,7 +178,7 @@ class Saving_account : public Bank_account {
 				return false;
 		} 
 
-		bool withdraw ( int withdrawAmount ) override {
+		bool withdraw ( double withdrawAmount ) override {
 			if ( accountStatus( accountBalance ) ) {
 				if ( !Bank_account::withdraw( withdrawAmount )) {
 					cout << "\nCouldn't process your request.";
@@ -216,7 +216,7 @@ class Saving_account : public Bank_account {
 		 * TODO: of saving class.
 		 */
 
-		bool deposit( int depositAmount ) override {
+		bool deposit( double depositAmount ) override {
 			/**
 			 * *Calling parent class function just now
 			 * TODO: Some more actions for this function.
