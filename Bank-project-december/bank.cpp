@@ -388,7 +388,7 @@ int main() {
 			break;
 
 			case 3:
-				double monthlyCharges = ptr->monthlyBill();
+				double monthlyCharges = ptr->monthlyBill( ptr->getMonthlyCharges() );
 				ptr->monthlyReport( monthlyCharges );
 			break;
 
