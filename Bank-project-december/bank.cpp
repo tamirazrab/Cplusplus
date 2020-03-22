@@ -61,7 +61,7 @@ class Bank_account {
 		 * @brief Construct a new bank account object
 		 * Initializing all member variables to default
 		 */
-		bank_account() {
+		Bank_account() {
 			accountBalance = 0.0;
 			totalDeposit , totalWithdraws = 0;
 			depositCounter , withdrawCounter = 0;
@@ -128,6 +128,9 @@ class Bank_account {
 		}
 
 		double monthlyBill( double ChargesPerMonth ) {
+			// *ChargesPerMonth actually denotes
+			// *Charges per withdraw , like percent of amount
+			// *withdrawed from account.
 			monthlyCharges = totalWithdraws * ChargesPerMonth;
 			accountBalance -=monthlyCharges;
 			// Time for calculating monthly interest
@@ -184,7 +187,7 @@ class Saving_account : public Bank_account {
 				} 
 			} else {
 				cout << "\nYour account has been inactive, "
-					 << "Due to lower balance than 25$."
+					 << "Due to lower balance than 25$.";
 				cout << "\nPlease add some balance to re-"
 					 << "activate your account.";
 				return false;
@@ -221,30 +224,24 @@ class Saving_account : public Bank_account {
 		}
 };
 
-class checking_account: public saving_account {
-
-	protected: int monthly_fee;
-	int withdraw_fee;
-	int services_charge;
-
-	public: checking_account() {
-
-		monthly_fee = 5;
-		withdraw_fee = 0.10;
-		// withdraw_fee is int , but floating value is being stored
-		services_charge = 15;
-	}
-	int withdraw(int w_inc) {
-		if ((balances - w_inc) < 0) {
-			balances = balances - services_charge;
-
+class Checking_account : public Bank_account {
+	private:
+		double serviceCharges, monthlyCharges;
+		double checking_chargesPerWithdraw;
+	public:
+		Checking_account() {
+			serviceCharges , monthlyCharges = 0.0;
+			checking_chargesPerWithdraw = 0.10;
 		}
-	}
-	void monthlyproc() {
-		services_charge = monthly_fee + (w_inc * withdraw_fee);
-		bank_account::monthlyproc();
-		cout << "services charges=" << services_charge;
-	}
+
+		// *Below function doesn't make a still sense
+		// *But as original author made it, I'd make it
+		// *with some modifications ofcourse but logic
+		// *of it still isn't clear to me
+		void withdraw( int withdrawCounter ) {
+			if ( accountBalance - withdrawCounter < 0 )
+				accountBalance -= serviceCharges;
+		}
 
 };
 
