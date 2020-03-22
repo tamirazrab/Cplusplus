@@ -388,12 +388,12 @@ int main() {
 	// Basic Menu
 	do {	
 		do {
-			cout << "\tBank System - Menu\n" <<
-				"\t1- Deposit\n" << "\t2- Withdraw\n" <<
+			cout << "\n\tBank System - Menu\n" <<
+				"\n\t1- Deposit\n" << "\t2- Withdraw\n" <<
 				"\t3- Account Summary\n" 
-				<< "\t4-Reset Status\n" << "\t5- Exit\n"
+				<< "\t4- Reset Status\n" << "\t5- Exit\n"
 				<< "\t6- Clear Screen\n";
-			cout << "Enter your choice: ";
+			cout << "\nEnter your choice: ";
 			cin >> userChoice;
 			// Validation of user choice
 			if (userChoice <= 0 || userChoice > 6) {
@@ -440,12 +440,12 @@ int main() {
 			break;
 
 			case 3:
-				ptr->reset_afterMonth();
+				monthlyCharges = ptr->monthlyBill( ptr->getMonthlyCharges() );
+				ptr->monthlyReport( monthlyCharges );
 			break;
 
 			case 4:
-				monthlyCharges = ptr->monthlyBill( ptr->getMonthlyCharges() );
-				ptr->monthlyReport( monthlyCharges );
+				ptr->reset_afterMonth();
 			break;
 
 			case 5:
