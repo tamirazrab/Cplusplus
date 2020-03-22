@@ -369,14 +369,14 @@ int main() {
 	// Basic Menu
 	do {	
 		do {
-			system("cls");
 			cout << "\tBank System - Menu\n" <<
 				"\t1- Deposit\n" << "\t2- Withdraw\n" <<
-				"\t3- Account Summary\n" << "\t4- Exit\n";
+				"\t3- Account Summary\n" << "\t4- Exit\n"
+				<< "5- Clear Screen\n";
 			cout << "Enter your choice: ";
 			cin >> userChoice;
 			// Validation of user choice
-			if (userChoice <= 0 || userChoice > 4) {
+			if (userChoice <= 0 || userChoice > 5) {
 				cout << "Error: You've entered invalid choice.\n" <<
 					"Please enter correct choice.\n";
 				validate_choice = true;
@@ -430,6 +430,7 @@ int main() {
 				exitSignal = false;
 				break;
 			default:
+				system("cls");
 				break;
 		}
 	} while ( exitSignal );
