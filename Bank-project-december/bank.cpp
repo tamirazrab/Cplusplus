@@ -379,7 +379,7 @@ int main() {
 		cout << "Enter account type please : ";
 		cin >> accountType;
 	} while ( accountType <= 0 || accountType > 3 );
-	// Assigning bank class pointer object memory according to account type
+
 	switch (accountType) {
 	case 1:
 		ptr = new Bank_account();
@@ -403,7 +403,6 @@ int main() {
 	 * TODO: Calling appropriate methods according to it
 	 * TODO: Finishing things up, testing.
 	 */
-	// Basic Menu
 	do {	
 		do {
 			cout << "\n\tBank System - Menu\n" <<
@@ -413,7 +412,7 @@ int main() {
 				<< "\t6- Clear Screen\n";
 			cout << "\nEnter your choice: ";
 			cin >> userChoice;
-			// Validation of user choice
+
 			if (userChoice <= 0 || userChoice > 6) {
 				cout << "Error: You've entered invalid choice.\n" <<
 					"Please enter correct choice.\n";
@@ -422,7 +421,7 @@ int main() {
 				validate_choice = false;
 
 		} while (validate_choice);
-		// methods call based on input
+
 		switch ( userChoice ) {
 			case 1:
 			do {
