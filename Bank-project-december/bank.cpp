@@ -347,8 +347,9 @@ class Checking_account : public Bank_account {
  * @param ptr 
  * @return Bank_account 
  */
-/*
-Bank_account getAccountType( Bank_account* ptr ) {
+
+Bank_account* getAccountType(  ) {
+	Bank_account* ptr = NULL;
 	int accountType = 0;
 	do {
 		cout << "Please read account type and select one for your account.\n";
@@ -368,35 +369,18 @@ Bank_account getAccountType( Bank_account* ptr ) {
 		ptr = new Checking_account();
 		break;
 	}
+	return ptr;
 }
-*/
+
 int main() {
 	Bank_account* ptr = NULL;
-	int accountType = 0;
-	do {
-		cout << "Please read account type and select one for your account.\n";
-		cout << "1- Normal account\n2- Saving Account\n3- Checking Account\n";
-		cout << "Enter account type please : ";
-		cin >> accountType;
-	} while ( accountType <= 0 || accountType > 3 );
-
-	switch (accountType) {
-	case 1:
-		ptr = new Bank_account();
-		break;
-	case 2:
-		ptr = new Saving_account();
-		break;
-	case 3:
-		ptr = new Checking_account();
-		break;
-	}
+	ptr = getAccountType();
 	int userChoice = 0;
 	bool validate_choice = false, exitSignal = true;
 	bool tryAgain = false;
 	char tryAgainChoice = '\0';
 	double monthlyCharges;
-	int depositAmount = 0 , withdrawAmount = 0;
+	double depositAmount = 0 , withdrawAmount = 0;
 	/**
 	 * TODO: Think about adjusting account type
 	 * TODO: Creating appropriate class object through parent class
@@ -435,7 +419,8 @@ int main() {
 						tryAgain = false;
 					else
 						tryAgain = true;
-				}
+				} else 
+					tryAgain = false;
 			} while( tryAgain );
 				
 			break;
@@ -451,7 +436,8 @@ int main() {
 						tryAgain = false;
 					else
 						tryAgain = true;
-				}
+				} else 
+					tryAgain = false;
 			} while( tryAgain );
 			
 			break;
