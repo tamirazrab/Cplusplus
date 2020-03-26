@@ -2,13 +2,13 @@
  * @file bank.cpp
  * @author Unknown
  * @improved by: Tamir
- * @brief - Simple bank proejct with basic deposit 
+ * @brief - Simple bank project with basic deposit
  *  and withdrawal operations nothing special really.
  * @version 0.1
  * @date 2020-03-21
- * 
+ *
  * @copyright Copyright (c) 2020
- * 
+ *
  */
 #include<iostream>
 
@@ -25,21 +25,21 @@ using namespace std;
  * ! Future TODO list
  * TODO: Calculating interest for different classes differently
  * TODO: ..based on different annual interest rate for them.
- * *Project finished 3/23/2020 - 12:09AM 
+ * *Project finished 3/23/2020 - 12:09AM
  * *Just some polishing up and making code efficient remaining
  * *It's performing it's functionality correctly just need now to implement new features.
- * 
+ *
  */
 
 class Bank_account {
-	/** 
+	/**
 	 * TODO: deposit and withdraw methods
 	 * TODO: validation of arguments
 	 * TODO: deposit and withdraw counters
 	 * TODO: hold total deposited and withdrawed amount
 	 * TODO: Calculate interest and monthly charges
 	 * TODO: Display account summary for this month
-	 * 
+	 *
 	*/
 	protected:
 		double accountBalance;
@@ -78,7 +78,7 @@ class Bank_account {
 					inputCheck = true;
 				}
 			} while ( inputCheck );
-			
+
 			/**
 			 * TODO: Validate input
 			 * TODO: Add loop to enforce user
@@ -87,7 +87,7 @@ class Bank_account {
 			 */
 			return getAnnualIntRate;
 		}
-		
+
 		virtual bool deposit( double depositAmount ) {
 			if ( depositAmount <= 0 ) {
 					cout << "You've entered invalid deposit amount $." << endl;
@@ -99,7 +99,7 @@ class Bank_account {
 				depositCounter++;
 				cout << "Your account balance has been sucessfully updated $.\n";
 				printCurrentBalance();
-			}		
+			}
 			return true;
 		}
 
@@ -127,7 +127,7 @@ class Bank_account {
 			monthlyInterestRate = ( annualInterestRate / 12.0 );
 			monthlyInterest = monthlyInterestRate * accountBalance;
 		}
-		
+
 		double getMonthlyInterest() {
 			return monthlyInterest;
 		}
@@ -159,8 +159,8 @@ class Bank_account {
 				 << "\nTotal withdraws made : " << withdrawCounter
 				 << "\nTotal amount withdrawed : $" << totalWithdraws
 				 << "\nTotal Deposit made : " << depositCounter
-				 << "\nTotal amount deposited : $" << totalDeposit;
-			
+				 << "\nTotal amount deposited : $" << this->totalDeposit;
+
 			cout << "\nYou've earned $" << getMonthlyInterest() << " for having $" << accountBalance << " balance.\n";
 			accountBalance += monthlyInterest;
 			cout << "\nMonthly charges for this month $" << /* monthlyBill(CHARGE_PER_WITHDRAW) */ monthlyCharges << ".\n";
@@ -183,7 +183,7 @@ class Bank_account {
 /**
  * TODO: Implementation of reset account function for
  * TODO: other saving and checking accounts too.
- * 
+ *
  */
 
 class Saving_account : public Bank_account {
@@ -206,13 +206,13 @@ class Saving_account : public Bank_account {
 		void reset_afterMonth() {
 			monthlyCharges = 0;
 		}
-	
+
 		bool accountStatus( double currentBalance ) {
 			if ( currentBalance > 25 )
 				return true;
 			else
 				return false;
-		} 
+		}
 
 		bool withdraw ( double withdrawAmount ) /* override */ {
 			if ( accountStatus( accountBalance ) ) {
@@ -220,7 +220,7 @@ class Saving_account : public Bank_account {
 					cout << "\nCouldn't process your request.";
 					cout << "\nPlease try again.";
 					return false;
-				} 
+				}
 			} else {
 				cout << "\nYour account has been inactive, "
 					 << "Due to lower balance than 25$.";
@@ -233,19 +233,19 @@ class Saving_account : public Bank_account {
 
 		/**
 		 * *No need to make deposit method as it's just
-		 * *Calling parent class deposit method doesn't 
+		 * *Calling parent class deposit method doesn't
 		 * *make sense to just make function to call other
 		 * *function. Will just directly call the parent
 		 * *class method.
 		 * ? Or make them virtual, let compiler call them
-		 * ? based on account type. 
+		 * ? based on account type.
 		 * ! Revise the concepts of virtual, polymorphism.
 		 */
 
 		/**
 		 * ! No now it makes sense to create deposit function
 		 * ! As parent class got virtual functions need to implement
-		 * ! them here too. 
+		 * ! them here too.
 		 * *I'll add some different operations in deposit function
 		 * * Later.
 		 * TODO: Add some different functionality in deposit func
@@ -270,13 +270,13 @@ class Saving_account : public Bank_account {
 			 * TODO: Think about why saved monthlyCharges of saving account? What's the use of it.
 			 * *Saved because it is required in generating monthly report got answer while making implementation
 			 * *of main func.
-			 * 
+			 *
 			 */
 			if ( withdrawCounter > 4 ) {
 				cout << "\nYou've had four withdraws, "
 					 << "You've 5th withdraw this month, "
 					 << "service charges for each withdraw "
-					 << "is now " << chargesPerWithdraw * 0.2 
+					 << "is now " << chargesPerWithdraw * 0.2
 					 << " percent.\n";
 				// doubling charge fee
 				currentChargesPerWithdraw *= 0.2;
@@ -311,7 +311,7 @@ class Checking_account : public Bank_account {
 		// *But as original author made it, I'd make it
 		// *with some modifications ofcourse but logic
 		// *of it still isn't clear to me
-		// *I think i got what author wanted, 
+		// *I think i got what author wanted,
 		// *Service charges should be applied if withdraws
 		// *made are more than current balance
 		void deductServiceCharges( int withdrawCounter ) {
@@ -326,7 +326,7 @@ class Checking_account : public Bank_account {
 
 		void monthlyReport ( double checkingMonthlyCharges ) {
 			serviceCharges = checkingMonthlyCharges + ( Bank_account::withdrawCounter * getChargesPerMonth());
-			/** 
+			/**
 			 * TODO: monthlyReport is calling monthlyBill in it
 			 * TODO: think about how to resolve the conflicts
 			 * TODO: when don't want it to be called in monthly report.
@@ -344,8 +344,8 @@ class Checking_account : public Bank_account {
  * ! it in main func.
  * *Need to look solution for it.
  * TODO: Find solution and reason of problem occuring.
- * @param ptr 
- * @return Bank_account 
+ * @param ptr
+ * @return Bank_account
  */
 
 Bank_account* getAccountType(  ) {
@@ -387,11 +387,11 @@ int main() {
 	 * TODO: Calling appropriate methods according to it
 	 * TODO: Finishing things up, testing.
 	 */
-	do {	
+	do {
 		do {
 			cout << "\n\tBank System - Menu\n" <<
 				"\n\t1- Deposit\n" << "\t2- Withdraw\n" <<
-				"\t3- Account Summary\n" 
+				"\t3- Account Summary\n"
 				<< "\t4- Reset Status\n" << "\t5- Exit\n"
 				<< "\t6- Clear Screen\n";
 			cout << "\nEnter your choice: ";
@@ -419,10 +419,10 @@ int main() {
 						tryAgain = false;
 					else
 						tryAgain = true;
-				} else 
+				} else
 					tryAgain = false;
 			} while( tryAgain );
-				
+
 			break;
 			case 2:
 				do {
@@ -436,10 +436,10 @@ int main() {
 						tryAgain = false;
 					else
 						tryAgain = true;
-				} else 
+				} else
 					tryAgain = false;
 			} while( tryAgain );
-			
+
 			break;
 
 			case 3:
