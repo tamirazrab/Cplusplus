@@ -372,6 +372,12 @@ Bank_account* getAccountType(  ) {
 	return ptr;
 }
 
+// ! Don't see the reason for garbage value which were occuring tomorrow
+// *But aren't occuring today.
+/** 
+ * TODO: Find some way to avoid garbage values even though constructor is initilizing.
+ */
+
 int main() {
 	Bank_account* ptr = NULL;
 	ptr = getAccountType();
