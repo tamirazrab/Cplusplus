@@ -202,7 +202,7 @@ int main() {
 
 
 void diceRoll() {
-    start_of_diceRoll: gameGreetings("Dice Roll");
+    gameGreetings("Dice Roll");
     bool rolldice_check = true;
 
     /*
