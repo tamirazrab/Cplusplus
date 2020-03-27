@@ -19,7 +19,7 @@ define MAX_BET_AMT 700 // Dice Roll max bet amount
 	character specified in it's parameters to a
 	given length
 */
-void drawLine(int length, char character);
+void , char character);
 / one to how many
 	times move cursor to next line and second how many
 	times should it give spaces
@@ -196,7 +196,7 @@ int main() {
     return 0;
 }
 
-void drawLine(int length, char character) {
+void , char character) {
     for (int i = 1; i <= length; ++i)
         cout << character;
     cout << "\n";
@@ -238,31 +238,31 @@ void diceRoll() {
     diceSum[2];
     dice[PC_FIRST_DICE] = (rand() % 6) + 1; // in range 1 - 6;
     dice[PC_SECOND_DICE] = (rand() % 6) + 1;
-    diceSum[PC_DICE_SUM] = dice[PC_FIRST_DICE] + dice[PC_SECOND_DICE];drawLine(80, '*
+    diceSum[PC_DICE_SUM] = dice[PC_FIRST_DICE] + dice[PC_SECOND_DICE];
     cout << "Computer rolls the dice on the floor " << diceSum[PC_DICE_SUM] <<
-    " for the bet of " << g_userBettingAmount << "$" << endldrawLine(80, '*');
+    " for the bet of " << g_userBettingAmount << "$" << endl, 
 
     if (diceSum[PC_DICE_SUM] == 2) {
         // Computer Loses automatically
-        drawLine(80, '_');
+        
         cout << "Computer looses automatically as it lands on 2." << endl;
         cout << "Congratulations you have won " << g_userBettingAmount * 2 << "$.";
-        drawLine(80, '_');
-        drawLine(80, '^');
+        
+        
         g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
         cout /* << endl */ << "Your new balance is " << g_startingBalanceOfUser << "$.";
-        drawLine(80, '.');
+        
         goto end_of_diceRollGame;
     } else if (diceSum[PC_DICE_SUM] == 12) {
         // Computer Won automatically
-        drawLine(80, '_');
+        
         cout << "Computer Wons automatically as it lands on 12." << endl;
         cout << "Sorry you can't roll dice, as chances of yours getting 12 " <<
             " is equal to NULL." << endl;
-        drawLine(80, '_');
-        drawLine(80, '^');
+        
+        
         cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
-        drawLine(80, '.');
+        
         goto end_of_diceRollGame;
     }
     // if computer didn't got 2, or 12 then
@@ -277,37 +277,37 @@ void diceRoll() {
 
     dice[USER_FIRST_DICE] = (rand() % 6) + 1; // in range 1 - 6;
     dice[USER_SECOND_DICE] = (rand() % 6) + 1;
-    diceSum[USER_DICE_SUM] = dice[USER_FIRST_DICE] + dice[USER_SECOND_DICE];drawLine(80, '*
+    diceSum[USER_DICE_SUM] = dice[USER_FIRST_DICE] + dice[USER_SECOND_DICE];, 
     cout << g_userName << " rolls the dice on the floor " << diceSum[USER_DICE_SUM] <<
-    " for the bet of " << g_userBettingAmount << "$" << endldrawLine(80, '*');
+    " for the bet of " << g_userBettingAmount << "$" << endl, 
 
     if (diceSum[USER_DICE_SUM] == 2) {
         // User Losses automatically
-        drawLine(80, '_');
+    
         cout << g_userName << " Sorry you have lost as you got 2." << endl;
-        drawLine(80, '_');
-        drawLine(80, '^');
+       
+        
         // g_startingBalanceOfUser = g_startingBalanceOfUser - g_userBettingAmount;
         cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
-        drawLine(80, '.');
+        
         goto end_of_diceRollGame;
     } else if (diceSum[USER_DICE_SUM] == 12) {
         // User Won automatically
-        drawLine(80, '_');
+        
         cout << g_userName << " Congratulation on getting number 12, you've won automatically " <<
             endl;
-        drawLine(80, '_');
-        drawLine(80, '^');
+        
+        
         g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
         cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
-        drawLine(80, '.');
+        
         goto end_of_diceRollGame;
     } else if (diceSum[PC_DICE_SUM] == diceSum[USER_DICE_SUM]) {
         // if both got the same number in their dices
-        drawLine(80, '^');
+        
         cout << " Haha, Sorry no one won as both players dices rolled";
         cout << " on same number. " << endl;
-        drawLine(80, '.');
+        
         /*
          * Assigning user bett amount back to user starting balance ( g_startingBalanceOfUser )
          * As of it's gonna ask user again to bet new amount after goto statement.
@@ -318,27 +318,26 @@ void diceRoll() {
     // else if user didn't got either 2, or 12
 
     if (diceSum[PC_DICE_SUM] > diceSum[USER_DICE_SUM]) {
-        drawLine(80, '_');
+        
         cout << "Computer got the higher number on their dice " <<
             " Which was " << diceSum[PC_DICE_SUM]; /*<< endl */
         cout << " Whereas you got " << diceSum[USER_DICE_SUM];
-        drawLine(80, '_');
-        drawLine(80, '^');
+        
+        
         cout << " Sorry you've just lost " << g_userBettingAmount << "$.";
-        drawLine(80, '^');
-        drawLine(80, '^');
+        
         cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
-        drawLine(80, '.');
+        
     } else {
-        drawLine(80, '_');
+        
         cout << g_userName << " got the higher number on their dice " <<
             " Which was " << diceSum[USER_DICE_SUM];
         cout << " Whereas Computer got " << diceSum[PC_DICE_SUM];
-        drawLine(80, '_');
-        cout << " Congratulations you've won " << g_userBettingAmount << "$.";, '^');
+        
+        cout << " Congratulations you've won " << g_userBettingAmount << "$.";, 
         g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
         cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
-        drawLine(80, '.');
+        
     }
     end_of_diceRollGame:
         /*
@@ -376,9 +375,9 @@ void NumberGuessing() {
     // generates number in range of 1 - 10 and stores in RandomNumberByComputer;
     int RandomNumberByComputer = (rand() % 10) + 1;
     int getUserGuess = 0;
-    cout << "Computer Generated a random number in range of ( 1 - 10) "drawLine(80, '*');
+    cout << "Computer Generated a random number in range of ( 1 - 10) ", 
     bool validateUserGuess = false;
-    do {, '*');
+    do {, 
         cout << "Enter your guess : ";
         cin >> getUserGuess;
         if (getUserGuess < 1 || getUserGuess > 10) {
@@ -392,19 +391,19 @@ void NumberGuessing() {
     } while (validateUserGuess);
     // Checking user Guess
     if (getUserGuess == RandomNumberByComputer) {
-        drawLine(80, '$');
+        
         cout << "Congratulations Your guess is correct." << endl;
         cout << "Computer Generated Number was " << RandomNumberByComputer;
         cout << "You have won x10 money " << g_userBettingAmount * 10 << " $ ";
         g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 10);
         cout << "Your new balance is " << g_startingBalanceOfUser << "$";
-        drawLine(80, '$');
+        
     } else {
-        drawLine(80, '*');
+        
         cout << "Computer Generated Number was " << RandomNumberByComputer;
         cout << "Whereas your guess was " << getUserGuess;
         cout << "Sorry you've lost " << g_userBettingAmount << " $ ";
-        drawLine(80, '*');
+        
     }
 
     if (checkUserMoney())
@@ -436,8 +435,7 @@ void High_and_Low() {
          */
         holdTwoNumbers[0] = (rand() % 10) + 1;
         goto getValid_randomNumber;
-    drawLine(80, '*
-    cout << "Computer Generated first number is " << holdTwoNumbers[0]drawLine(80, '*');
+    cout << "Computer Generated first number is " << holdTwoNumbers[0],
     // Taking User guess
     do {
         cout << "Tell whether next generated number is high or low";
@@ -449,7 +447,7 @@ void High_and_Low() {
             validateGuessByUser = false;
             if (holdTwoNumbers[1] > holdTwoNumbers[0]) {
     
-                drawLine(80, '*');
+                 
     
                 cout << "Congratulations you guessed right";
     
@@ -457,7 +455,7 @@ void High_and_Low() {
     
                 cout << "You won " << g_userBettingAmount * 2 << "$";
     
-                drawLine(80, '*');
+              
     
     
     
@@ -466,7 +464,7 @@ void High_and_Low() {
      end_of_highAndLow;
             } else {
     
-                drawLine(80, '*');
+                 
     
                 cout << "Sorry you have lost " << g_userBettingAmount << "$";
     
@@ -483,7 +481,7 @@ void High_and_Low() {
             validateGuessByUser = false;
             if (holdTwoNumbers[1] < holdTwoNumbers[0]) {
     
-                drawLine(80, '*');
+                 
     
                 cout << "Congratulations you guessed right";
     
@@ -491,7 +489,7 @@ void High_and_Low() {
     
                 cout << "You won " << g_userBettingAmount * 2 << "$";
     
-                drawLine(80, '*');
+                 
     
     
     
@@ -502,7 +500,7 @@ void High_and_Low() {
                 goto end_of_highAndLow;
             } else {
     
-                drawLine(80, '*');
+                 
     
                 cout << "Sorry you have lost " << g_userBettingAmount << "$";
     
@@ -604,10 +602,10 @@ bool playAgain() {
 
 bool checkUserMoney() {
     if (g_startingBalanceOfUser <= 0) {
-        drawLine(80, '#');
+        
         cout << "You don't have any money left to bet. ";
         cout << "Sending you back to main menu.";
-        drawLine(80, '#');
+        
         return true;
     } else
         return false;
@@ -615,9 +613,9 @@ bool checkUserMoney() {
 
 void gameGreetings(string gameName) {
     system("cls")
-    drawLine(80, '$')
+    
     cout << "Welcome to " << gameName << " Game " << " Mr." << g_userName << endl
-    drawLine(80, '$')
+     '$')
 }
 
 bool v_startingBalance(int getStartingBalance) {
