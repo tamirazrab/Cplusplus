@@ -365,8 +365,15 @@ void endGame( int callBy ) {
 }
 
 void NumberGuessing() {
-    start_of_numberGuessing: gameGreetings("Number Guessing");
-    askUserBet(200, 100);
+    /**
+     * TODO: All games have different high and low
+     * TODO: bets, askUserBet was getting 
+     * TODO: arguments rightly to support this idea.
+     * TODO: Implementation for it pending.
+     * 
+     */
+    gameGreetings("Number Guessing");
+    // askUserBet(200, 100);
     // After user bet is validated properly
     // generates number in range of 1 - 10 and stores in RandomNumberByComputer;
     int RandomNumberByComputer = (rand() % 10) + 1;
@@ -374,7 +381,6 @@ void NumberGuessing() {
     cout << "Computer Generated a random number in range of ( 1 - 10) ",
     bool validateUserGuess = false;
     do {
-        ,
         cout << "Enter your guess : ";
         cin >> getUserGuess;
         if (getUserGuess < 1 || getUserGuess > 10) {
@@ -386,38 +392,26 @@ void NumberGuessing() {
     } while (validateUserGuess);
     // Checking user Guess
     if (getUserGuess == RandomNumberByComputer) {
-
         cout << "Congratulations Your guess is correct." << endl;
         cout << "Computer Generated Number was " << RandomNumberByComputer;
         cout << "You have won x10 money " << g_userBettingAmount * 10 << " $ ";
         g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 10);
         cout << "Your new balance is " << g_startingBalanceOfUser << "$";
-
     } else {
-
         cout << "Computer Generated Number was " << RandomNumberByComputer;
         cout << "Whereas your guess was " << getUserGuess;
         cout << "Sorry you've lost " << g_userBettingAmount << " $ ";
-
     }
 
-    if (checkBalanceLeft())
-        /* Send to main menu */
-        backToMain();
-    else {
-        if (playAgain())
-            goto start_of_numberGuessing;
-        else
-            backToMain();
-    }
+    endGame( CALL_BY_NG );
 }
 
 void High_and_Low() {
-    start_of_highAndLow: gameGreetings("High and Low");
+    gameGreetings("High and Low");
     char takeGuessFromUser;
     bool validateGuessByUser = false;
     int holdTwoNumbers[2];
-    askUserBet(800, 100);
+    // askUserBet(800, 100);
     // Starting Game by generating two random numbers
     holdTwoNumbers[0] = (rand() % 10) + 1; // in range 1 - 10
     holdTwoNumbers[1] = (rand() % 10) + 1;
