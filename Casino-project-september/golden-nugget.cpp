@@ -73,7 +73,7 @@ void backToMain();
 
 
 // bool askUserBet(int MAX_BET_AMT , int MIN_BET_AMT );
-bool askUserBet();
+void askUserBet();
 
 /*
  * Play again gets user choice ( validated ) whether he wants to play again or not.
@@ -551,27 +551,29 @@ void High_and_Low() {
         main();
     }
 
-bool askUserBet() {
-    bool validateUserBet = false;
+void askUserBet() {
+    bool validateUserBet = true;
+    /**
+     * TODO: Think of a way to remove repition of validateUserBet - 3 times
+     * TODO: A way where just setting it to true one time will do the trick.
+     * *Just found a way let me try it.
+     * 
+     */
     do {
         cout << "Please enter the amount you want to bet : ";
         cin >> g_userBettingAmount;
-        if (g_userBettingAmount > g_startingBalanceOfUser) {
-            validateUserBet = true;
+        if (g_userBettingAmount > g_startingBalanceOfUser)
             cout << "Sorry you can't bet more then your original balance.";
-            } else if (g_userBettingAmount > MAX_BET_AMT ) {
-                validateUserBet = true;
+            else if (g_userBettingAmount > MAX_BET_AMT )
                 cout << "Sorry you cannot place bet more then " << MAX_BET_AMT << "$.";
-            } else if (g_userBettingAmount < MIN_BET_AMT ) {
-                validateUserBet = true;
+            else if (g_userBettingAmount < MIN_BET_AMT )
                 cout << "Sorry your bet must be greater then " << MIN_BET_AMT  << "$.";
-            } else {
+            else {
                 validateUserBet = false;
                 // deducting money before hand
                 g_startingBalanceOfUser = g_startingBalanceOfUser - g_userBettingAmount;
             }
         } while (validateUserBet);
-    return true;
 }
 
     bool playAgain() {
