@@ -19,13 +19,7 @@ define MAX_BET_AMT 700 // Dice Roll max bet amount
 	character specified in it's parameters to a
 	given length
 */
-void, char character);
-/ one to how many
-times move cursor to next line and second how many
-times should it give spaces
-    *
-    /
-vo, int tab_length = 0);
+
 
 /*
  * Dice roll function works with by taking user starting amount, asking user to bet some money
