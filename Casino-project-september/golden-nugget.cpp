@@ -115,6 +115,12 @@ bool v_startingBalance(int getStartingBalance);
  */
 int gameMenu();
 
+/**
+ * @brief Asks user to play again if not directs back to main else invokes diceRoll function.
+ * 
+ */
+void endGame();
+
 // Global variables area
 /*
 	direct back to main() function
@@ -330,7 +336,7 @@ void diceRoll() {
     // return 0; -> Useless return 
 }
 
-bool endGame() {
+void endGame() {
      /*
          * checkBalanceLeft returns true if balance == 0 or < 0 else -> returns false
          * playAgain returns true if userChoice == y || Y else returns false
