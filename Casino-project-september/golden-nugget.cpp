@@ -16,6 +16,9 @@ using namespace std;
 # define USER_SECOND_DICE 3
 # define PC_DICE_SUM 0
 # define USER_DICE_SUM 1
+#define CALL_BY_DR 0
+#define CALL_BY_NG 1
+#define CALL_BY_HL 2
 
 // Function Declaration area
 /*
@@ -336,7 +339,7 @@ void diceRoll() {
     // return 0; -> Useless return 
 }
 
-void endGame() {
+void endGame( int callBy ) {
     /*
      * checkBalanceLeft returns true if balance == 0 or < 0 else -> returns false
      * playAgain returns true if userChoice == y || Y else returns false
@@ -346,10 +349,19 @@ void endGame() {
         backToMain();
     else {
         if (playAgain())
-            diceRoll();
-        else
-            backToMain();
+            switch ( callBy ) {
+            case CALL_BY_DR:
+                diceRoll();
+                break;
+            case CALL_BY_NG:
+                NumberGuessing();
+                break;
+            case CALL_BY_HL:
+                High_and_Low();
+                break;
+            }
     }
+    backToMain();
 }
 
 void NumberGuessing() {
@@ -367,9 +379,7 @@ void NumberGuessing() {
         cin >> getUserGuess;
         if (getUserGuess < 1 || getUserGuess > 10) {
             validateUserGuess = true;
-
             cout << "Your Guess is invalid , it must be in range of 1 - 10." << endl;
-
             cout << "Please enter guess again in range of ( 1 - 10 )" << endl;
         } else
             validateUserGuess = false;
