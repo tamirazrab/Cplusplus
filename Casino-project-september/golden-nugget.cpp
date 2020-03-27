@@ -8,10 +8,14 @@
 
 using namespace std;
 
-#
-define MAX_BET_AMT 700 // Dice Roll max bet amount
+#define MAX_BET_AMT 700 // Dice Roll max bet amount
 # define MIN_BET_AMT 5 // Dice Roll min bet amount
-# define PC_FIRST_DICE 0# define PC_SECOND_DICE 1# define USER_FIRST_DICE 2# define USER_SECOND_DICE 3# define PC_DICE_SUM 0# define USER_DICE_SUM 1
+# define PC_FIRST_DICE 0
+# define PC_SECOND_DICE 1
+# define USER_FIRST_DICE 2
+# define USER_SECOND_DICE 3
+# define PC_DICE_SUM 0
+# define USER_DICE_SUM 1
 
 // Function Declaration area
 /*
@@ -63,10 +67,13 @@ void backToMain();
 
 /*
  * Ask user bet gets user bet ( validated ) and stores it in global variable so that all functions
- * can access it properly, it is called on every function start. Returns true after it's get valid bet amount/
+ * can access it properly, it is called on every function start. Returns true after it's get valid bet amount,
+ * There's really no need to pass extra arguments, when can access made macros.
  */
 
-bool askUserBet(int maxBet, int minBet);
+
+// bool askUserBet(int MAX_BET_AMT , int MIN_BET_AMT );
+bool askUserBet();
 
 /*
  * Play again gets user choice ( validated ) whether he wants to play again or not.
@@ -208,7 +215,12 @@ void diceRoll() {
      * MAX_BET_AMT represents maximum bet can be placed in dice roll which is 700$
      * MIN_BET_AMT represents minimum bet can be placed in dice roll which is 5$
      */
-    askUserBet(MAX_BET_AMT, MIN_BET_AMT);
+    /**
+     * *If macros are accessible why pass them thought parameters? Haha, funniest thing I've seen.
+     * *It's 2 year old me though. 
+    */
+    // askUserBet(MAX_BET_AMT, MIN_BET_AMT);
+    askUserBet();
 
     /*
      * Array of integer dice contains the sum of dices rolled both by computer and user.
@@ -539,31 +551,28 @@ void High_and_Low() {
         main();
     }
 
-    bool askUserBet(int maxBet, int minBet) {
-        bool validateUserBet = false;
-        do {
-            cout << "Please enter the amount you want to bet : ";
-            cin >> g_userBettingAmount;
-            if (g_userBettingAmount > g_startingBalanceOfUser) {
+bool askUserBet() {
+    bool validateUserBet = false;
+    do {
+        cout << "Please enter the amount you want to bet : ";
+        cin >> g_userBettingAmount;
+        if (g_userBettingAmount > g_startingBalanceOfUser) {
+            validateUserBet = true;
+            cout << "Sorry you can't bet more then your original balance.";
+            } else if (g_userBettingAmount > MAX_BET_AMT ) {
                 validateUserBet = true;
-
-                cout << "Sorry you can't bet more then your original balance.";
-            } else if (g_userBettingAmount > maxBet) {
+                cout << "Sorry you cannot place bet more then " << MAX_BET_AMT << "$.";
+            } else if (g_userBettingAmount < MIN_BET_AMT ) {
                 validateUserBet = true;
-
-                cout << "Sorry you cannot place bet more then " << maxBet << "$.";
-            } else if (g_userBettingAmount < minBet) {
-                validateUserBet = true;
-
-                cout << "Sorry your bet must be greater then " << minBet << "$.";
+                cout << "Sorry your bet must be greater then " << MIN_BET_AMT  << "$.";
             } else {
                 validateUserBet = false;
                 // deducting money before hand
                 g_startingBalanceOfUser = g_startingBalanceOfUser - g_userBettingAmount;
             }
         } while (validateUserBet);
-        return true;
-    }
+    return true;
+}
 
     bool playAgain() {
         bool confirmPlayAgain = false;
