@@ -130,6 +130,18 @@ int g_userBettingAmount = 0;
 int main() {
     system("cls"); // Clear Screen
     srand( time( NULL ) ); // calls only once seeding rand()
+
+     void (*gameFunctions[])() = {
+        NumberGuessing,
+        High_and_Low,
+        diceRoll,
+        /**
+         * TODO: Not sure if exit function will fit in anyway
+         * TODO: will take that headache on testing times.
+         * ! It won't because it expects argument.
+         */
+    };
+
     if ( g_getBackToMain ) {
         cleaner( 1 ); drawLine( 80, '-' ); cleaner( 2, 3 );
         cout << "Golden Nuggets Casino" << endl;
@@ -160,6 +172,7 @@ int main() {
         else
             validateUserStartingAmount = false;
     } while ( validateUserStartingAmount );
+
     cleaner( 1 , 2 );
     cout << "Welcome to Golden Nugget Casino, " << g_userName << endl;
     cleaner( 1 ); drawLine( 80, '-' ); cleaner( 1, 1 );
@@ -170,9 +183,12 @@ int main() {
     cout << " 3 - Dice Roll ( Win amount x2)" << endl; cleaner( 1 , 2);
     cout << " 4 - To Exit Program." << endl; cleaner( 1 , 2 );
     cleaner( 1 );  drawLine( 80, '-' );
-    cleaner( 0 , 2);  cout << "Enter your choice below ( in numbers ) : ";
-    int gameSelection; cin >> gameSelection;
+    cleaner( 0 , 2);  
+    cout << "Enter your choice below ( in numbers ) : ";
+    int gameSelection = 0; 
+    cin >> gameSelection;
     cleaner( 1, 0 ); drawLine( 80, '-' );
+    /*
     switch ( gameSelection ) {
         case 1: NumberGuessing(); break;
         case 2: High_and_Low(); break;
@@ -180,6 +196,22 @@ int main() {
         case 4: exit( 0 ); // Didn't added break because it's unreachable if exit function called first.
         default: cleaner( 2, 2 ); cout << "Wrong Choice, Exiting Program."; break;
     }
+    */
+   if ( gameSelection == 1 )
+        gameSelection = 0;
+    else if ( gameSelection < 0 ) {
+        cleaner( 2, 2 );
+        cout << "Invalid choice.\n";
+        return 0;
+    }
+    else if ( gameSelection >= 4 ) {
+        cleaner( 2, 2 );
+        cout << "Thank you so much for using.\n";
+        cout << "Have a good day.";
+        exit( EXIT_SUCCESS );
+    }
+
+    (*gameFunctions [ gameSelection ])();
     return 0;
 }
 
@@ -197,7 +229,7 @@ void cleaner( int newline_length , int tab_length ) {
         cout << "\t";
 }
 
-int diceRoll( ) {
+void diceRoll( ) {
     start_of_diceRoll:
         gameGreetings( "Dice Roll" );
         bool rolldice_check = true;
@@ -389,7 +421,7 @@ int diceRoll( ) {
 
     /* if( g_startingBalanceOfUser < 0 || g_startingBalanceOfUser == 0 || g_startingBalanceOfUser > 0 ) */
 
-    return 0;
+    // return 0; -> Useless return 
 }
 
 void NumberGuessing( ) {
