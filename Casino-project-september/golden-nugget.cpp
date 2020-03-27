@@ -198,19 +198,7 @@ int main() {
     return 0;
 }
 
-void, char character) {
-    for (int i = 1; i <= length; ++i)
-        cout << character;
-    cout << "\n";
-}
 
-
-vo tab_length) {
-    for (int i = 1; i <= newline_length; ++i)
-        cout << endl;
-    for (int i = 1; i <= tab_length; ++i)
-        cout << "\t";
-}
 
 void diceRoll() {
     start_of_diceRoll: gameGreetings("Dice Roll");
