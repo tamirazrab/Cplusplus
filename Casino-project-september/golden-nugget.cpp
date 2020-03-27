@@ -407,6 +407,11 @@ void NumberGuessing() {
 }
 
 void High_and_Low() {
+    /**
+     * TODO: Solving problem of supporting different
+     * TODO: maximum and minimum bets for different games.
+     * 
+     */
     gameGreetings("High and Low");
     char takeGuessFromUser;
     bool validateGuessByUser = false;
@@ -435,92 +440,38 @@ void High_and_Low() {
                 if (takeGuessFromUser == 'H' || takeGuessFromUser == 'h') {
                     validateGuessByUser = false;
                     if (holdTwoNumbers[1] > holdTwoNumbers[0]) {
-
-
-
                         cout << "Congratulations you guessed right";
-
                         cout << "Second generated number was " << holdTwoNumbers[1];
-
                         cout << "You won " << g_userBettingAmount * 2 << "$";
-
-
-
-
-
                         g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
                         cout << "Your new balance is " << g_startingBalanceOfUser;
                         end_of_highAndLow;
                     } else {
-
-
-
                         cout << "Sorry you have lost " << g_userBettingAmount << "$";
-
                         cout << "Second generated number was " << holdTwoNumbers[1];
-
-
-
                         cout << "Your new balance is " << g_startingBalanceOfUser << "$";
-
-
-                        goto end_of_highAndLow;
                     }
                 } else if (takeGuessFromUser == 'L' || takeGuessFromUser == 'l') {
                     validateGuessByUser = false;
                     if (holdTwoNumbers[1] < holdTwoNumbers[0]) {
-
-
-
                         cout << "Congratulations you guessed right";
-
                         cout << "Second generated number was " << holdTwoNumbers[1];
-
                         cout << "You won " << g_userBettingAmount * 2 << "$";
-
-
-
-
-
                         g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
                         cout << "Your new balance is " << g_startingBalanceOfUser << "$";
-
-
-                        goto end_of_highAndLow;
                     } else {
-
-
-
                         cout << "Sorry you have lost " << g_userBettingAmount << "$";
-
                         cout << "Second generated number was " << holdTwoNumbers[1];
-
-
-
                         cout << "Your new balance is " << g_startingBalanceOfUser << "$";
-
-
-                        goto end_of_highAndLow;
                     }
                 } else {
-
                     cout << "You entered invalid guess.";
-
                     cout << "Please enter valid guess again.";
                     validateGuessByUser = true;
                 }
             } while (validateGuessByUser);
-        end_of_highAndLow: if (checkBalanceLeft()) {
-            /* Send to main menu */
-            backToMain();
-        }
-        else {
-            if (playAgain())
-                goto start_of_highAndLow;
-            else
-                backToMain();
-        }
-    }
+     endGame( CALL_BY_HL );
+}
 
     void backToMain() {
         bool confirmTransfer = false;
