@@ -167,7 +167,7 @@ int main() {
     cout << " Please Deposit some new amount to play more games.";
   }
 
-  bool validateUserStartingAmount = false;
+
   do {
     cout << "Enter your starting betting amount in $ : ";
     cin >> g_startingBalanceOfUser;
