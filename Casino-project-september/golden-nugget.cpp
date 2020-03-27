@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define MAX_BET_AMT 700 // Dice Roll max bet amount
+#define MAX_BET_AMT 1400 // Dice Roll max bet amount
 # define MIN_BET_AMT 5 // Dice Roll min bet amount
 # define PC_FIRST_DICE 0
 # define PC_SECOND_DICE 1
