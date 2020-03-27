@@ -19,11 +19,12 @@ define MAX_BET_AMT 700 // Dice Roll max bet amount
 	character specified in it's parameters to a
 	given length
 */
-void , char character);
+void, char character);
 / one to how many
-	times move cursor to next line and second how many
-	times should it give spaces
-*/
+times move cursor to next line and second how many
+times should it give spaces
+    *
+    /
 vo, int tab_length = 0);
 
 /*
@@ -106,6 +107,13 @@ void gameGreetings(string gameName);
 
 bool v_startingBalance(int getStartingBalance);
 
+/**
+ * @brief displays game menu with multiple choices
+ * 
+ * @return int - returns user selected choice
+ */
+int gameMenu();
+
 // Global variables area
 /*
 	direct back to main() function
@@ -133,70 +141,63 @@ int g_startingBalanceOfUser = 0;
  */
 int g_userBettingAmount = 0;
 
+
+
 int main() {
-    system("cls"); // Clear Screen
-    srand(time(NULL)); // calls only once seeding rand()
+  system("cls"); // Clear Screen
+  srand(time(NULL)); // calls only once seeding rand()
 
-    void( * gameFunctions[])() = {
-        NumberGuessing,
-        High_and_Low,
-        diceRoll,
-        /**
-         * TODO: Not sure if exit function will fit in anyway
-         * TODO: will take that headache on testing times.
-         * ! It won't because it expects argument.
-         */
-    };
+  void( * gameFunctions[])() = {
+    NumberGuessing,
+    High_and_Low,
+    diceRoll,
+    /**
+     * TODO: Not sure if exit function will fit in anyway
+     * TODO: will take that headache on testing times.
+     * ! It won't because it expects argument.
+     */
+  };
 
-    if (g_getBackToMain) {
-        cout << "Golden Nuggets Casino" << endl;
-        cout << "Enter your name please : ";
-        getline(cin, g_userName);
-    } else {
-        cout << "Your balance is " << g_startingBalanceOfUser << "$ from previous games.";
-        cout << " Please Deposit some new amount to play more games.";
-    }
+  if (g_getBackToMain) {
+    cout << "Golden Nuggets Casino" << endl;
+    cout << "Enter your name please : ";
+    getline(cin, g_userName);
+  } else {
+    cout << "Your balance is " << g_startingBalanceOfUser << "$ from previous games.";
+    cout << " Please Deposit some new amount to play more games.";
+  }
 
-    bool validateUserStartingAmount = false;
-    do {
-        cout << "Enter your starting betting amount in $ : ";
-        cin >> g_startingBalanceOfUser;
-    } while (v_startingBalance(g_startingBalanceOfUser));
+  bool validateUserStartingAmount = false;
+  do {
+    cout << "Enter your starting betting amount in $ : ";
+    cin >> g_startingBalanceOfUser;
+  } while (v_startingBalance(g_startingBalanceOfUser));
 
-    cout << "Welcome to Golden Nugget Casino, " << g_userName << endl;
-    cout << "Please Choose from the list below, Which game you want to play ? "
-    cout << " 1 - Number Guessing ( Win amount x10) " << endl
-    cout << " 2 - High and Low ( Win amount x2) " << endl
-    cout << " 3 - Dice Roll ( Win amount x2)" << endl
-    cout << " 4 - To Exit Program." << end
-    cout << "Enter your choice below ( in numbers ) : ";
-    int gameSelection = 0;
-    cin >> gameSelection
-    /*
-    switch ( gameSelection ) {
-        case 1: NumberGuessing(); break;
-        case 2: High_and_Low(); break;
-        case 3: diceRoll(); break;
-        case 4: exit( 0 ); // Didn't added break because it's unreachable if exit function called first.
-        defaul ); cout << "Wrong Choice, Exiting Program."; break;
-    }
-    */
+  /*
+  switch ( gameSelection ) {
+      case 1: NumberGuessing(); break;
+      case 2: High_and_Low(); break;
+      case 3: diceRoll(); break;
+      case 4: exit( 0 ); // Didn't added break because it's unreachable if exit function called first.
+      defaul ); cout << "Wrong Choice, Exiting Program."; break;
+  }
+  */
+
     if (gameSelection == 1)
-        gameSelection = 0;
-    else if (gameSelection < 0) {
-        cout << "Invalid choice.\n";
-        return 0;
-    } else if (gameSelection >= 4) {
+     gameSelection = 0; // set to zero because to pointer to function array;
+     else if (gameSelection == 4) {
         cout << "Thank you so much for using.\n";
         cout << "Have a good day.";
         exit(EXIT_SUCCESS);
     }
+    int userMenuChoice = gameMenu();
+
 
     ( * gameFunctions[gameSelection])();
     return 0;
 }
 
-void , char character) {
+void, char character) {
     for (int i = 1; i <= length; ++i)
         cout << character;
     cout << "\n";
@@ -240,29 +241,29 @@ void diceRoll() {
     dice[PC_SECOND_DICE] = (rand() % 6) + 1;
     diceSum[PC_DICE_SUM] = dice[PC_FIRST_DICE] + dice[PC_SECOND_DICE];
     cout << "Computer rolls the dice on the floor " << diceSum[PC_DICE_SUM] <<
-    " for the bet of " << g_userBettingAmount << "$" << endl, 
+    " for the bet of " << g_userBettingAmount << "$" << endl,
 
     if (diceSum[PC_DICE_SUM] == 2) {
         // Computer Loses automatically
-        
+
         cout << "Computer looses automatically as it lands on 2." << endl;
         cout << "Congratulations you have won " << g_userBettingAmount * 2 << "$.";
-        
-        
+
+
         g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
         cout /* << endl */ << "Your new balance is " << g_startingBalanceOfUser << "$.";
-        
+
         goto end_of_diceRollGame;
     } else if (diceSum[PC_DICE_SUM] == 12) {
         // Computer Won automatically
-        
+
         cout << "Computer Wons automatically as it lands on 12." << endl;
         cout << "Sorry you can't roll dice, as chances of yours getting 12 " <<
             " is equal to NULL." << endl;
-        
-        
+
+
         cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
-        
+
         goto end_of_diceRollGame;
     }
     // if computer didn't got 2, or 12 then
@@ -277,37 +278,37 @@ void diceRoll() {
 
     dice[USER_FIRST_DICE] = (rand() % 6) + 1; // in range 1 - 6;
     dice[USER_SECOND_DICE] = (rand() % 6) + 1;
-    diceSum[USER_DICE_SUM] = dice[USER_FIRST_DICE] + dice[USER_SECOND_DICE];, 
+    diceSum[USER_DICE_SUM] = dice[USER_FIRST_DICE] + dice[USER_SECOND_DICE];,
     cout << g_userName << " rolls the dice on the floor " << diceSum[USER_DICE_SUM] <<
-    " for the bet of " << g_userBettingAmount << "$" << endl, 
+    " for the bet of " << g_userBettingAmount << "$" << endl,
 
     if (diceSum[USER_DICE_SUM] == 2) {
         // User Losses automatically
-    
+
         cout << g_userName << " Sorry you have lost as you got 2." << endl;
-       
-        
+
+
         // g_startingBalanceOfUser = g_startingBalanceOfUser - g_userBettingAmount;
         cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
-        
+
         goto end_of_diceRollGame;
     } else if (diceSum[USER_DICE_SUM] == 12) {
         // User Won automatically
-        
+
         cout << g_userName << " Congratulation on getting number 12, you've won automatically " <<
             endl;
-        
-        
+
+
         g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
         cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
-        
+
         goto end_of_diceRollGame;
     } else if (diceSum[PC_DICE_SUM] == diceSum[USER_DICE_SUM]) {
         // if both got the same number in their dices
-        
+
         cout << " Haha, Sorry no one won as both players dices rolled";
         cout << " on same number. " << endl;
-        
+
         /*
          * Assigning user bett amount back to user starting balance ( g_startingBalanceOfUser )
          * As of it's gonna ask user again to bet new amount after goto statement.
@@ -318,26 +319,26 @@ void diceRoll() {
     // else if user didn't got either 2, or 12
 
     if (diceSum[PC_DICE_SUM] > diceSum[USER_DICE_SUM]) {
-        
+
         cout << "Computer got the higher number on their dice " <<
             " Which was " << diceSum[PC_DICE_SUM]; /*<< endl */
         cout << " Whereas you got " << diceSum[USER_DICE_SUM];
-        
-        
+
+
         cout << " Sorry you've just lost " << g_userBettingAmount << "$.";
-        
+
         cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
-        
+
     } else {
-        
+
         cout << g_userName << " got the higher number on their dice " <<
             " Which was " << diceSum[USER_DICE_SUM];
         cout << " Whereas Computer got " << diceSum[PC_DICE_SUM];
-        
-        cout << " Congratulations you've won " << g_userBettingAmount << "$.";, 
+
+        cout << " Congratulations you've won " << g_userBettingAmount << "$.";,
         g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
         cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
-        
+
     }
     end_of_diceRollGame:
         /*
@@ -375,9 +376,10 @@ void NumberGuessing() {
     // generates number in range of 1 - 10 and stores in RandomNumberByComputer;
     int RandomNumberByComputer = (rand() % 10) + 1;
     int getUserGuess = 0;
-    cout << "Computer Generated a random number in range of ( 1 - 10) ", 
+    cout << "Computer Generated a random number in range of ( 1 - 10) ",
     bool validateUserGuess = false;
-    do {, 
+    do {
+        ,
         cout << "Enter your guess : ";
         cin >> getUserGuess;
         if (getUserGuess < 1 || getUserGuess > 10) {
@@ -391,19 +393,19 @@ void NumberGuessing() {
     } while (validateUserGuess);
     // Checking user Guess
     if (getUserGuess == RandomNumberByComputer) {
-        
+
         cout << "Congratulations Your guess is correct." << endl;
         cout << "Computer Generated Number was " << RandomNumberByComputer;
         cout << "You have won x10 money " << g_userBettingAmount * 10 << " $ ";
         g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 10);
         cout << "Your new balance is " << g_startingBalanceOfUser << "$";
-        
+
     } else {
-        
+
         cout << "Computer Generated Number was " << RandomNumberByComputer;
         cout << "Whereas your guess was " << getUserGuess;
         cout << "Sorry you've lost " << g_userBettingAmount << " $ ";
-        
+
     }
 
     if (checkUserMoney())
@@ -435,187 +437,186 @@ void High_and_Low() {
          */
         holdTwoNumbers[0] = (rand() % 10) + 1;
         goto getValid_randomNumber;
-    cout << "Computer Generated first number is " << holdTwoNumbers[0],
-    // Taking User guess
-    do {
-        cout << "Tell whether next generated number is high or low";
-        cout << "then previously generated number. ( H/h for high )";
-        cout << "(L/l for Low) ";
-        cout << "Enter your guess : ";
-        cin >> takeGuessFromUser;
-        if (takeGuessFromUser == 'H' || takeGuessFromUser == 'h') {
-            validateGuessByUser = false;
-            if (holdTwoNumbers[1] > holdTwoNumbers[0]) {
-    
-                 
-    
-                cout << "Congratulations you guessed right";
-    
-                cout << "Second generated number was " << holdTwoNumbers[1];
-    
-                cout << "You won " << g_userBettingAmount * 2 << "$";
-    
-              
-    
-    
-    
-                g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
-                cout << "Your new balance is " << g_startingBalanceOfUser;
-     end_of_highAndLow;
-            } else {
-    
-                 
-    
-                cout << "Sorry you have lost " << g_userBettingAmount << "$";
-    
-                cout << "Second generated number was " << holdTwoNumbers[1];
-    
-    
-    
-                cout << "Your new balance is " << g_startingBalanceOfUser << "$";
-    
-    
-                goto end_of_highAndLow;
-            }
-        } else if (takeGuessFromUser == 'L' || takeGuessFromUser == 'l') {
-            validateGuessByUser = false;
-            if (holdTwoNumbers[1] < holdTwoNumbers[0]) {
-    
-                 
-    
-                cout << "Congratulations you guessed right";
-    
-                cout << "Second generated number was " << holdTwoNumbers[1];
-    
-                cout << "You won " << g_userBettingAmount * 2 << "$";
-    
-                 
-    
-    
-    
-                g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
-                cout << "Your new balance is " << g_startingBalanceOfUser << "$";
-    
-    
-                goto end_of_highAndLow;
-            } else {
-    
-                 
-    
-                cout << "Sorry you have lost " << g_userBettingAmount << "$";
-    
-                cout << "Second generated number was " << holdTwoNumbers[1];
-    
-    
-    
-                cout << "Your new balance is " << g_startingBalanceOfUser << "$";
-    
-    
-                goto end_of_highAndLow;
-            }
-        } else {
+        cout << "Computer Generated first number is " << holdTwoNumbers[0],
+            // Taking User guess
+            do {
+                cout << "Tell whether next generated number is high or low";
+                cout << "then previously generated number. ( H/h for high )";
+                cout << "(L/l for Low) ";
+                cout << "Enter your guess : ";
+                cin >> takeGuessFromUser;
+                if (takeGuessFromUser == 'H' || takeGuessFromUser == 'h') {
+                    validateGuessByUser = false;
+                    if (holdTwoNumbers[1] > holdTwoNumbers[0]) {
 
-            cout << "You entered invalid guess.";
 
-            cout << "Please enter valid guess again.";
-            validateGuessByUser = true;
-        }
-    } while (validateGuessByUser);
-    end_of_highAndLow: if (checkUserMoney()) {
-        /* Send to main menu */
-        backToMain();
-    }
-    else {
-        if (playAgain())
-            goto start_of_highAndLow;
-        else
+
+                        cout << "Congratulations you guessed right";
+
+                        cout << "Second generated number was " << holdTwoNumbers[1];
+
+                        cout << "You won " << g_userBettingAmount * 2 << "$";
+
+
+
+
+
+                        g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
+                        cout << "Your new balance is " << g_startingBalanceOfUser;
+                        end_of_highAndLow;
+                    } else {
+
+
+
+                        cout << "Sorry you have lost " << g_userBettingAmount << "$";
+
+                        cout << "Second generated number was " << holdTwoNumbers[1];
+
+
+
+                        cout << "Your new balance is " << g_startingBalanceOfUser << "$";
+
+
+                        goto end_of_highAndLow;
+                    }
+                } else if (takeGuessFromUser == 'L' || takeGuessFromUser == 'l') {
+                    validateGuessByUser = false;
+                    if (holdTwoNumbers[1] < holdTwoNumbers[0]) {
+
+
+
+                        cout << "Congratulations you guessed right";
+
+                        cout << "Second generated number was " << holdTwoNumbers[1];
+
+                        cout << "You won " << g_userBettingAmount * 2 << "$";
+
+
+
+
+
+                        g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
+                        cout << "Your new balance is " << g_startingBalanceOfUser << "$";
+
+
+                        goto end_of_highAndLow;
+                    } else {
+
+
+
+                        cout << "Sorry you have lost " << g_userBettingAmount << "$";
+
+                        cout << "Second generated number was " << holdTwoNumbers[1];
+
+
+
+                        cout << "Your new balance is " << g_startingBalanceOfUser << "$";
+
+
+                        goto end_of_highAndLow;
+                    }
+                } else {
+
+                    cout << "You entered invalid guess.";
+
+                    cout << "Please enter valid guess again.";
+                    validateGuessByUser = true;
+                }
+            } while (validateGuessByUser);
+        end_of_highAndLow: if (checkUserMoney()) {
+            /* Send to main menu */
             backToMain();
+        }
+        else {
+            if (playAgain())
+                goto start_of_highAndLow;
+            else
+                backToMain();
+        }
     }
-}
 
-void backToMain() {
-    bool confirmTransfer = false;
-    do {
-        cout << "Please Press m or M to go to main menu : ";
-        char askUser;
-        cin >> askUser;
-        if (askUser == 'M' || askUser == 'm')
-            confirmTransfer = false;
-        else {
-            confirmTransfer = true;
+    void backToMain() {
+        bool confirmTransfer = false;
+        do {
+            cout << "Please Press m or M to go to main menu : ";
+            char askUser;
+            cin >> askUser;
+            if (askUser == 'M' || askUser == 'm')
+                confirmTransfer = false;
+            else {
+                confirmTransfer = true;
 
-            cout << "Please enter m or M to get back to main menu.";
+                cout << "Please enter m or M to get back to main menu.";
 
-            cout << "Anything else is not accepted.";
-        }
-    } while (confirmTransfer);
+                cout << "Anything else is not accepted.";
+            }
+        } while (confirmTransfer);
 
-    g_getBackToMain = false;
-    main();
-}
+        g_getBackToMain = false;
+        main();
+    }
 
-bool askUserBet(int maxBet, int minBet) {
-    bool validateUserBet = false;
-    do {
-        cout << "Please enter the amount you want to bet : ";
-        cin >> g_userBettingAmount;
-        if (g_userBettingAmount > g_startingBalanceOfUser) {
-            validateUserBet = true;
+    bool askUserBet(int maxBet, int minBet) {
+        bool validateUserBet = false;
+        do {
+            cout << "Please enter the amount you want to bet : ";
+            cin >> g_userBettingAmount;
+            if (g_userBettingAmount > g_startingBalanceOfUser) {
+                validateUserBet = true;
 
-            cout << "Sorry you can't bet more then your original balance.";
-        } else if (g_userBettingAmount > maxBet) {
-            validateUserBet = true;
+                cout << "Sorry you can't bet more then your original balance.";
+            } else if (g_userBettingAmount > maxBet) {
+                validateUserBet = true;
 
-            cout << "Sorry you cannot place bet more then " << maxBet << "$.";
-        } else if (g_userBettingAmount < minBet) {
-            validateUserBet = true;
+                cout << "Sorry you cannot place bet more then " << maxBet << "$.";
+            } else if (g_userBettingAmount < minBet) {
+                validateUserBet = true;
 
-            cout << "Sorry your bet must be greater then " << minBet << "$.";
-        } else {
-            validateUserBet = false;
-            // deducting money before hand
-            g_startingBalanceOfUser = g_startingBalanceOfUser - g_userBettingAmount;
-        }
-    } while (validateUserBet);
-    return true;
-}
-
-bool playAgain() {
-    bool confirmPlayAgain = false;
-    char askUser;
-    do {
-        cout << "Do you want to play again ? (Y/N) : ";
-        cin >> askUser;
-        if (askUser == 'Y' || askUser == 'y')
-            return true;
-
-        else if (askUser == 'N' || askUser == 'n')
-            return false;
-
-        else {
-            confirmPlayAgain = true;
-
-            cout << "Please enter your choice correctly.";
-        }
-    } while (confirmPlayAgain);
-}
-
-bool checkUserMoney() {
-    if (g_startingBalanceOfUser <= 0) {
-        
-        cout << "You don't have any money left to bet. ";
-        cout << "Sending you back to main menu.";
-        
+                cout << "Sorry your bet must be greater then " << minBet << "$.";
+            } else {
+                validateUserBet = false;
+                // deducting money before hand
+                g_startingBalanceOfUser = g_startingBalanceOfUser - g_userBettingAmount;
+            }
+        } while (validateUserBet);
         return true;
-    } else
-        return false;
-}
+    }
 
-void gameGreetings(string gameName) {
-    system("cls")
-    
-    cout << "Welcome to " << gameName << " Game " << " Mr." << g_userName << endl
-     '$')
+    bool playAgain() {
+        bool confirmPlayAgain = false;
+        char askUser;
+        do {
+            cout << "Do you want to play again ? (Y/N) : ";
+            cin >> askUser;
+            if (askUser == 'Y' || askUser == 'y')
+                return true;
+
+            else if (askUser == 'N' || askUser == 'n')
+                return false;
+
+            else {
+                confirmPlayAgain = true;
+
+                cout << "Please enter your choice correctly.";
+            }
+        } while (confirmPlayAgain);
+    }
+
+    bool checkUserMoney() {
+        if (g_startingBalanceOfUser <= 0) {
+
+            cout << "You don't have any money left to bet. ";
+            cout << "Sending you back to main menu.";
+
+            return true;
+        } else
+            return false;
+    }
+
+    void gameGreetings(string gameName) {
+        system("cls")
+
+        cout << "Welcome to " << gameName << " Game " << " Mr." << g_userName << endl '$')
 }
 
 bool v_startingBalance(int getStartingBalance) {
@@ -626,4 +627,26 @@ bool v_startingBalance(int getStartingBalance) {
     } else
         return false;
     return true;
+}
+
+int gameMenu() {
+    bool choiceCheck = false;
+    int gameSelection = 0;
+    do {
+        cout << "Welcome to Golden Nugget Casino, " << g_userName << endl;
+        cout << "Please Choose from the list below, Which game you want to play ? "
+        cout << " 1 - Number Guessing ( Win amount x10) " << endl
+        cout << " 2 - High and Low ( Win amount x2) " << endl
+        cout << " 3 - Dice Roll ( Win amount x2)" << endl
+        cout << " 4 - To Exit Program." << end
+        cout << "Enter your choice below ( in numbers ) : ";
+        cin >> gameSelection;
+        if (gameSelection < 1 || gameSelection > 4) {
+            cout << "\nInvalid choice, please select correct one.\n";
+            choiceCheck = true;
+        } else
+            choiceCheck = false;
+    } while (choiceCheck);
+
+    return gameSelection;
 }
