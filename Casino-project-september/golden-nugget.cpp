@@ -173,24 +173,8 @@ int main() {
     cin >> g_startingBalanceOfUser;
   } while (v_startingBalance(g_startingBalanceOfUser));
 
-  /*
-  switch ( gameSelection ) {
-      case 1: NumberGuessing(); break;
-      case 2: High_and_Low(); break;
-      case 3: diceRoll(); break;
-      case 4: exit( 0 ); // Didn't added break because it's unreachable if exit function called first.
-      defaul ); cout << "Wrong Choice, Exiting Program."; break;
-  }
-  */
-
-    if (gameSelection == 1)
-     gameSelection = 0; 
-     else if (gameSelection == 4) {
-       
-    }
 
     int userMenuChoice = gameMenu();
-    
     switch ( userMenuChoice )
     {
     case 1:
