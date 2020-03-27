@@ -1,20 +1,14 @@
-/*
-	Made by: Tamir Azrab
-	It may sound easy to just remove this comment
-	or maybe replace my name with yours but it ain't
-	easy to write this long code and the time being invested
-	so please do give credits if you can.
-*/
+
 
 #include <iostream>
-#include <stdlib.h> // for seeding rand()
-#include <time.h> // using time()
-#include <string.h> // for string class
+#include <stdlib.h> 
+#include <time.h> 
+#include <string.h> 
 
 using namespace std;
 
-#define MAX_STR_AMT 700 // Dice Roll max bet amount
-#define MIN_STR_AMT 5 // Dice Roll min bet amount
+#define MAX_BET_AMT 700 // Dice Roll max bet amount
+#define MIN_BET_AMT 5 // Dice Roll min bet amount
 #define PC_FIRST_DICE 0
 #define PC_SECOND_DICE 1
 #define USER_FIRST_DICE 2
@@ -113,39 +107,39 @@ void gameGreetings( string gameName );
 	and let user deposit some new amount to play some
 	more games.
 */
-bool getBackToMain = true;
+bool g_getBackToMain = true;
 /*
-	Made userName variable to global to avoid
+	Made g_userName variable to global to avoid
 	un-necessary passing to back to back to
 	functions and let ease our work
 */
-string userName;
+string g_userName;
 /*
-	startingBalanceOfUser variable holds the starting money that user
+	g_startingBalanceOfUser variable holds the starting money that user
 	deposits and let it change through every function
 	required it
 */
-int startingBalanceOfUser = 0;
+int g_startingBalanceOfUser = 0;
 
 /*
- * userBettingAmount is the variable which holds the amount user bets
+ * g_userBettingAmount is the variable which holds the amount user bets
  * before playing any game.
  */
-int userBettingAmount = 0;
+int g_userBettingAmount = 0;
 
 int main() {
     system("cls"); // Clear Screen
     srand( time( NULL ) ); // calls only once seeding rand()
-    if ( getBackToMain ) {
+    if ( g_getBackToMain ) {
         cleaner( 1 ); drawLine( 80, '-' ); cleaner( 2, 3 );
         cout << "Golden Nuggets Casino" << endl;
         cleaner( 1 ); drawLine( 80, '-' ); cleaner( 1, 2 );
         cout << "Enter your name please : ";
-        getline( cin , userName );
+        getline( cin , g_userName );
     }
     else {
         cleaner( 2, 2 );
-        cout << "Your balance is " << startingBalanceOfUser << "$ from previous games.";
+        cout << "Your balance is " << g_startingBalanceOfUser << "$ from previous games.";
         cleaner( 2 , 2 ); cout << " Please Deposit some new amount to play more games.";
         cleaner( 2 );
     }
@@ -154,20 +148,20 @@ int main() {
     do {
         cleaner( 2 , 2 );
         cout << "Enter your starting betting amount in $ : ";
-        cin >> startingBalanceOfUser;
-        if( startingBalanceOfUser > 700 ) {
+        cin >> g_startingBalanceOfUser;
+        if( g_startingBalanceOfUser > 700 ) {
             validateUserStartingAmount = true;
             cleaner( 2, 2 ); cout << "Sorry you can't deposit more then 700$";
         }
-        else if( startingBalanceOfUser < 200 ) {
+        else if( g_startingBalanceOfUser < 200 ) {
             validateUserStartingAmount = true;
-            cleaner( 2 , 2 ); cout << "Sorry you must deposit more then 200$";
+            cleaner( 2 , 2 ); cout << "Sorry you must deposit less then 200$";
         }
         else
             validateUserStartingAmount = false;
     } while ( validateUserStartingAmount );
     cleaner( 1 , 2 );
-    cout << "Welcome to Golden Nugget Casino, " << userName << endl;
+    cout << "Welcome to Golden Nugget Casino, " << g_userName << endl;
     cleaner( 1 ); drawLine( 80, '-' ); cleaner( 1, 1 );
     cout << "Please Choose from the list below, Which game you want to play ? ";
     cleaner( 2, 2 );
@@ -211,14 +205,14 @@ int diceRoll( ) {
             /*
                 According to betting rule minimum bet allowed is 5$
                 whereas maximum is 700$ user can't bypass these rules
-                if userBettingAmount is more then the deposited money by the user
+                if g_userBettingAmount is more then the deposited money by the user
                 then it also not allowed
             */
             /*
-             * MAX_STR_AMT represents maximum bet can be placed in dice roll which is 700$
-             * MIN_STR_AMT represents minimum bet can be placed in dice roll which is 5$
+             * MAX_BET_AMT represents maximum bet can be placed in dice roll which is 700$
+             * MIN_BET_AMT represents minimum bet can be placed in dice roll which is 5$
              */
-            askUserBet( MAX_STR_AMT, MIN_STR_AMT );
+            askUserBet( MAX_BET_AMT, MIN_BET_AMT );
 
             /*
              * Array of integer dice contains the sum of dices rolled both by computer and user.
@@ -235,7 +229,7 @@ int diceRoll( ) {
 
          cleaner( 1 ); drawLine( 80, '*' ); cleaner( 2 , 2 );
          cout << "Computer rolls the dice on the floor " << diceSum[ PC_DICE_SUM]
-              << " for the bet of " << userBettingAmount << "$" << endl;
+              << " for the bet of " << g_userBettingAmount << "$" << endl;
          cleaner( 1 ); drawLine( 80, '*' );
 
         if ( diceSum[ PC_DICE_SUM ] == 2 ) {
@@ -244,12 +238,12 @@ int diceRoll( ) {
             cleaner( 2 , 2 );
             cout << "Computer looses automatically as it lands on 2." << endl;
             cleaner( 1, 2 );
-            cout << "Congratulations you have won " << userBettingAmount * 2 << "$.";
+            cout << "Congratulations you have won " << g_userBettingAmount * 2 << "$.";
             cleaner( 1 ); drawLine( 80, '_' ); cleaner( 1 );
             drawLine( 80, '^' );
-            startingBalanceOfUser = startingBalanceOfUser + ( userBettingAmount * 2 );
+            g_startingBalanceOfUser = g_startingBalanceOfUser + ( g_userBettingAmount * 2 );
             cleaner( 1, 2 );
-            cout /* << endl */ << "Your new balance is " << startingBalanceOfUser << "$.";
+            cout /* << endl */ << "Your new balance is " << g_startingBalanceOfUser << "$.";
             cleaner( 1 ); drawLine( 80, '.' );
             goto end_of_diceRollGame;
         }
@@ -264,7 +258,7 @@ int diceRoll( ) {
             cleaner( 1 );  drawLine( 80, '_' );
             cleaner( 1 );
             drawLine( 80, '^' );
-            cout << "Your new balance is " << startingBalanceOfUser << "$.";
+            cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
             cleaner( 1 ); drawLine( 80, '.' );
             goto end_of_diceRollGame;
         }
@@ -284,21 +278,21 @@ int diceRoll( ) {
         diceSum[ USER_DICE_SUM ] = dice[ USER_FIRST_DICE ] + dice [ USER_SECOND_DICE ];
 
         cleaner( 1 );  	drawLine( 80, '*' ); cleaner( 1, 2 );
-        cout << userName << " rolls the dice on the floor " << diceSum[ USER_DICE_SUM]
-                        << " for the bet of " << userBettingAmount << "$" << endl;
+        cout << g_userName << " rolls the dice on the floor " << diceSum[ USER_DICE_SUM]
+                        << " for the bet of " << g_userBettingAmount << "$" << endl;
         cleaner( 1 ); drawLine( 80, '*' );
 
         if ( diceSum[ USER_DICE_SUM ] == 2 ) {
             // User Losses automatically
             cleaner( 1 ); drawLine( 80, '_' );
             cleaner( 1, 2 );
-            cout << userName << " Sorry you have lost as you got 2." << endl;
+            cout << g_userName << " Sorry you have lost as you got 2." << endl;
             cleaner( 1 );  drawLine( 80, '_' );
             cleaner( 1 );
             drawLine( 80, '^' );
-            // startingBalanceOfUser = startingBalanceOfUser - userBettingAmount;
+            // g_startingBalanceOfUser = g_startingBalanceOfUser - g_userBettingAmount;
             cleaner( 1, 2 );
-            cout  << "Your new balance is " << startingBalanceOfUser << "$.";
+            cout  << "Your new balance is " << g_startingBalanceOfUser << "$.";
             cleaner( 1 ); drawLine( 80, '.' );
             goto end_of_diceRollGame;
         }
@@ -306,13 +300,13 @@ int diceRoll( ) {
             // User Won automatically
             cleaner( 1 ); drawLine( 80, '_' );
             cleaner( 1, 2 );
-            cout << userName << " Congratulation on getting number 12, you've won automatically "
+            cout << g_userName << " Congratulation on getting number 12, you've won automatically "
                  << endl;
             cleaner( 1 );  drawLine( 80, '_' );
             cleaner( 2 ); drawLine( 80, '^' );
-            startingBalanceOfUser = startingBalanceOfUser + ( userBettingAmount * 2 );
+            g_startingBalanceOfUser = g_startingBalanceOfUser + ( g_userBettingAmount * 2 );
             cleaner( 2 , 3 );
-            cout << "Your new balance is " << startingBalanceOfUser << "$.";
+            cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
             cleaner( 2 ); drawLine( 80, '.' );
             goto end_of_diceRollGame;
         }
@@ -326,10 +320,10 @@ int diceRoll( ) {
             cout << " on same number. " << endl;
             cleaner( 2 ); drawLine( 80, '.' );
             /*
-             * Assigning user bett amount back to user starting balance ( startingBalanceOfUser )
+             * Assigning user bett amount back to user starting balance ( g_startingBalanceOfUser )
              * As of it's gonna ask user again to bet new amount after goto statement.
              */
-            startingBalanceOfUser = userBettingAmount;
+            g_startingBalanceOfUser = g_userBettingAmount;
             goto end_of_diceRollGame;
         }
         // else if user didn't got either 2, or 12
@@ -346,27 +340,27 @@ int diceRoll( ) {
             cleaner( 2 );
             drawLine( 80, '^' );
             cleaner( 2 , 2 );
-            cout  << " Sorry you've just lost " << userBettingAmount << "$.";
+            cout  << " Sorry you've just lost " << g_userBettingAmount << "$.";
             cleaner( 3, 0 ); drawLine( 80, '^' );
             cleaner( 2 ); drawLine( 80, '^' ); cleaner( 2 , 2 );
-            cout  << "Your new balance is " << startingBalanceOfUser << "$.";
+            cout  << "Your new balance is " << g_startingBalanceOfUser << "$.";
             cleaner( 3, 0 ); drawLine( 80, '.' );
         }
         else {
             cleaner( 1, 0 );  drawLine( 80, '_' );
             cleaner( 2 , 2 );
-            cout  << userName << " got the higher number on their dice "
+            cout  << g_userName << " got the higher number on their dice "
                   << " Which was " << diceSum[ USER_DICE_SUM ];
             cleaner( 2 , 2 );
             cout << " Whereas Computer got " << diceSum[ PC_DICE_SUM ];
             cleaner( 2 );
             drawLine( 80, '_' );		cleaner( 1, 2 );
-            cout  << " Congratulations you've won " << userBettingAmount << "$.";
+            cout  << " Congratulations you've won " << g_userBettingAmount << "$.";
             cleaner( 3 );
             drawLine( 80, '^' );
-            startingBalanceOfUser = startingBalanceOfUser + ( userBettingAmount * 2 );
+            g_startingBalanceOfUser = g_startingBalanceOfUser + ( g_userBettingAmount * 2 );
             cleaner( 2 , 2 );
-            cout  << "Your new balance is " << startingBalanceOfUser << "$.";
+            cout  << "Your new balance is " << g_startingBalanceOfUser << "$.";
             cleaner( 2 ); drawLine( 80, '.' );
         }
         end_of_diceRollGame:
@@ -393,7 +387,7 @@ int diceRoll( ) {
             character different then Y/y N/n
         */
 
-    /* if( startingBalanceOfUser < 0 || startingBalanceOfUser == 0 || startingBalanceOfUser > 0 ) */
+    /* if( g_startingBalanceOfUser < 0 || g_startingBalanceOfUser == 0 || g_startingBalanceOfUser > 0 ) */
 
     return 0;
 }
@@ -430,9 +424,9 @@ void NumberGuessing( ) {
         cout << "Congratulations Your guess is correct." << endl;
         cleaner( 1 , 2 ); cout << "Computer Generated Number was " << RandomNumberByComputer;
         cleaner( 1  ); drawLine( 80, '-'); cleaner( 1 , 2 );
-        cout << "You have won x10 money " << userBettingAmount * 10 << " $ ";
-        startingBalanceOfUser = startingBalanceOfUser + ( userBettingAmount * 10 );
-        cleaner( 1 , 2 ); cout << "Your new balance is " << startingBalanceOfUser << "$";
+        cout << "You have won x10 money " << g_userBettingAmount * 10 << " $ ";
+        g_startingBalanceOfUser = g_startingBalanceOfUser + ( g_userBettingAmount * 10 );
+        cleaner( 1 , 2 ); cout << "Your new balance is " << g_startingBalanceOfUser << "$";
         cleaner( 1 ); drawLine( 80, '-'); cleaner( 1 );
         cleaner( 1 ); drawLine( 80, '$' );
     }
@@ -440,7 +434,7 @@ void NumberGuessing( ) {
         cleaner( 1 ); drawLine( 80, '*' ); cleaner( 1, 2 );
         cout << "Computer Generated Number was " << RandomNumberByComputer;
         cleaner( 2, 2 ); cout << "Whereas your guess was " << getUserGuess;
-        cleaner( 2 , 2 ); cout << "Sorry you've lost " << userBettingAmount << " $ ";
+        cleaner( 2 , 2 ); cout << "Sorry you've lost " << g_userBettingAmount << " $ ";
         cleaner( 2 ); drawLine( 80, '*' );
     }
 
@@ -492,20 +486,20 @@ void High_and_Low() {
                     cleaner( 1 );  drawLine( 80, '*' ); cleaner( 1, 2 );
                     cout << "Congratulations you guessed right";
                     cleaner( 2, 2 ); cout << "Second generated number was " << holdTwoNumbers[ 1 ];
-                    cleaner( 2, 2 ); cout << "You won " << userBettingAmount * 2 << "$";
+                    cleaner( 2, 2 ); cout << "You won " << g_userBettingAmount * 2 << "$";
                     cleaner( 2 );  drawLine( 80, '*' ); cleaner( 1 );
                     drawLine( 80, '-' ); cleaner( 2 , 2 );
-                    startingBalanceOfUser = startingBalanceOfUser + ( userBettingAmount * 2 );
-                    cout << "Your new balance is " << startingBalanceOfUser;
+                    g_startingBalanceOfUser = g_startingBalanceOfUser + ( g_userBettingAmount * 2 );
+                    cout << "Your new balance is " << g_startingBalanceOfUser;
                     cleaner( 3 ); drawLine( 80, '-' );
                     goto end_of_highAndLow;
                 }
                 else {
                     cleaner( 1 );  drawLine( 80, '*' ); cleaner( 2, 2 );
-                    cout << "Sorry you have lost " << userBettingAmount << "$";
+                    cout << "Sorry you have lost " << g_userBettingAmount << "$";
                     cleaner( 2, 2 ); cout << "Second generated number was " << holdTwoNumbers[ 1 ];
                     cleaner( 2 );  drawLine( 80, '-' ); cleaner( 2 , 2 );
-                    cout << "Your new balance is " << startingBalanceOfUser << "$";
+                    cout << "Your new balance is " << g_startingBalanceOfUser << "$";
                     cleaner( 2 );  drawLine( 80, '-' );
                     goto end_of_highAndLow;
                 }
@@ -516,20 +510,20 @@ void High_and_Low() {
                     cleaner( 2 );  drawLine( 80, '*' ); cleaner( 1 , 2 );
                     cout << "Congratulations you guessed right";
                     cleaner( 2, 2 ); cout << "Second generated number was " << holdTwoNumbers[ 1 ];
-                    cleaner( 2, 2 ); cout << "You won " << userBettingAmount * 2 << "$";
+                    cleaner( 2, 2 ); cout << "You won " << g_userBettingAmount * 2 << "$";
                     cleaner( 2 );  drawLine( 80, '*' ); cleaner( 1 );
                     drawLine( 80, '-' ); cleaner( 2 , 2 );
-                    startingBalanceOfUser = startingBalanceOfUser + ( userBettingAmount * 2 );
-                    cout << "Your new balance is " << startingBalanceOfUser << "$";
+                    g_startingBalanceOfUser = g_startingBalanceOfUser + ( g_userBettingAmount * 2 );
+                    cout << "Your new balance is " << g_startingBalanceOfUser << "$";
                     cleaner( 2 ); drawLine( 80, '-' );
                     goto end_of_highAndLow;
                 }
                 else {
                     cleaner( 1 );  drawLine( 80, '*' ); cleaner( 1, 2 );
-                    cout << "Sorry you have lost " << userBettingAmount << "$";
+                    cout << "Sorry you have lost " << g_userBettingAmount << "$";
                     cleaner( 2, 2 ); cout << "Second generated number was " << holdTwoNumbers[ 1 ];
                     cleaner( 2 );  drawLine( 80, '-' ); cleaner( 2 , 2 );
-                    cout << "Your new balance is " << startingBalanceOfUser << "$";
+                    cout << "Your new balance is " << g_startingBalanceOfUser << "$";
                     cleaner( 2 );  drawLine( 80, '-' );
                     goto end_of_highAndLow;
                 }
@@ -567,7 +561,7 @@ void backToMain() {
         }
     } while ( confirmTransfer );
 
-    getBackToMain = false;
+    g_getBackToMain = false;
     main();
 }
 
@@ -575,23 +569,23 @@ bool askUserBet( int maxBet, int minBet ) {
     bool validateUserBet = false;
     do {
         cleaner( 2, 2 ); cout << "Please enter the amount you want to bet : ";
-        cin >> userBettingAmount;
-        if( userBettingAmount > startingBalanceOfUser ) {
+        cin >> g_userBettingAmount;
+        if( g_userBettingAmount > g_startingBalanceOfUser ) {
             validateUserBet = true;
             cleaner( 2 , 2 ); cout << "Sorry you can't bet more then your original balance.";
         }
-        else if ( userBettingAmount > maxBet ) {
+        else if ( g_userBettingAmount > maxBet ) {
             validateUserBet = true;
             cleaner( 2 , 2 ); cout << "Sorry you cannot place bet more then " << maxBet << "$.";
         }
-        else if( userBettingAmount < minBet ) {
+        else if( g_userBettingAmount < minBet ) {
             validateUserBet = true;
             cleaner( 2 , 2 ); cout << "Sorry your bet must be greater then " << minBet << "$.";
         }
         else {
             validateUserBet = false;
             // deducting money before hand
-            startingBalanceOfUser = startingBalanceOfUser - userBettingAmount;
+            g_startingBalanceOfUser = g_startingBalanceOfUser - g_userBettingAmount;
         }
     } while ( validateUserBet );
     return true;
@@ -618,7 +612,7 @@ bool playAgain() {
 }
 
 bool checkUserMoney() {
-    if( startingBalanceOfUser <= 0 ) {
+    if( g_startingBalanceOfUser <= 0 ) {
         cleaner( 3 , 0 ); drawLine( 80, '#' ); cleaner( 1, 2 );
         cout << "You don't have any money left to bet. ";
         cleaner( 2, 2 ); cout << "Sending you back to main menu.";
@@ -632,6 +626,6 @@ bool checkUserMoney() {
 void gameGreetings( string gameName ) {
     system("cls");
     cleaner( 1 ); drawLine( 80, '$'); cleaner( 2 , 2 );
-    cout << "Welcome to " << gameName << " Game " << " Mr." << userName << endl;
+    cout << "Welcome to " << gameName << " Game " << " Mr." << g_userName << endl;
     cleaner( 2 ); drawLine( 80, '$'); cleaner( 2 );
 }
