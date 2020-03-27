@@ -184,16 +184,27 @@ int main() {
   */
 
     if (gameSelection == 1)
-     gameSelection = 0; // set to zero because to pointer to function array;
+     gameSelection = 0; 
      else if (gameSelection == 4) {
+       
+    }
+
+    int userMenuChoice = gameMenu();
+    
+    switch ( userMenuChoice )
+    {
+    case 1:
+        userMenuChoice = 0; // setting to zero because to pointer to function array;
+        break;
+    case 4:
         cout << "Thank you so much for using.\n";
         cout << "Have a good day.";
         exit(EXIT_SUCCESS);
+    default:
+        ( * gameFunctions[ userMenuChoice ])();
+        break;
     }
-    int userMenuChoice = gameMenu();
 
-
-    ( * gameFunctions[gameSelection])();
     return 0;
 }
 
