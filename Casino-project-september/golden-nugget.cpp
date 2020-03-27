@@ -340,7 +340,7 @@ bool endGame() {
             backToMain();
         else {
             if (playAgain())
-                goto start_of_diceRoll;
+                diceRoll();
             else
                 backToMain();
         }
