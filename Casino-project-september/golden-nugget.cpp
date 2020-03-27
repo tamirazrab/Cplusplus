@@ -89,7 +89,7 @@ bool playAgain();
  * or not.
  */
 
-bool checkUserMoney();
+bool checkBalanceLeft();
 
 /*
  * game Greetings function basically takes game name as argument and display it in a fancy way
@@ -231,124 +231,90 @@ void diceRoll() {
      */
 
     int dice[4],
-    diceSum[2];
+    int diceSum[2];
     dice[PC_FIRST_DICE] = (rand() % 6) + 1; // in range 1 - 6;
     dice[PC_SECOND_DICE] = (rand() % 6) + 1;
     diceSum[PC_DICE_SUM] = dice[PC_FIRST_DICE] + dice[PC_SECOND_DICE];
     cout << "Computer rolls the dice on the floor " << diceSum[PC_DICE_SUM] <<
     " for the bet of " << g_userBettingAmount << "$" << endl,
 
+    /**
+     * *Funny thing is in every case game's going to end.
+     * *No matter who won what happened. Why not just call
+     * *endgame() function single time at the end.
+     * TODO: Think about transfering control back to diceRoll from endgame
+     * TODO: if user wishes to play again.
+     */
+
     if (diceSum[PC_DICE_SUM] == 2) {
-        // Computer Loses automatically
+     // Computer Loses automatically
+     cout << "Computer looses automatically as it lands on 2." << endl;
+     cout << "Congratulations you have won " << g_userBettingAmount * 2 << "$.";
+     g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
+     cout /* << endl */ << "Your new balance is " << g_startingBalanceOfUser << "$.";
+ } else if (diceSum[PC_DICE_SUM] == 12) {
+     // Computer Won automatically
+     cout << "Computer Wons automatically as it lands on 12." << endl;
+     cout << "Sorry you can't roll dice, as chances of yours getting 12 " <<
+         " is equal to NULL." << endl;
+     cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
+ } else {
+     // if computer didn't got 2, or 12 then
+     char rollDice;
+     do {
+         cout << " Please press r/R to roll your dice : ";
+         cin >> rollDice;
+         // to let user out of loop if he/she typed r/R
+         rolldice_check = !(rollDice == 'r' || rollDice == 'R');
+     } while (rolldice_check); /*rollDice != 'r' || rollDice != 'R'*/
 
-        cout << "Computer looses automatically as it lands on 2." << endl;
-        cout << "Congratulations you have won " << g_userBettingAmount * 2 << "$.";
-
-
-        g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
-        cout /* << endl */ << "Your new balance is " << g_startingBalanceOfUser << "$.";
-
-        goto end_of_diceRollGame;
-    } else if (diceSum[PC_DICE_SUM] == 12) {
-        // Computer Won automatically
-
-        cout << "Computer Wons automatically as it lands on 12." << endl;
-        cout << "Sorry you can't roll dice, as chances of yours getting 12 " <<
-            " is equal to NULL." << endl;
-
-
-        cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
-
-        goto end_of_diceRollGame;
-    }
-    // if computer didn't got 2, or 12 then
-    char rollDice;
-
-    do {
-        cout << " Please press r/R to roll your dice : ";
-        cin >> rollDice;
-        // to let user out of loop if he/she typed r/R
-        rolldice_check = !(rollDice == 'r' || rollDice == 'R');
-    } while (rolldice_check); /*rollDice != 'r' || rollDice != 'R'*/
-
-    dice[USER_FIRST_DICE] = (rand() % 6) + 1; // in range 1 - 6;
-    dice[USER_SECOND_DICE] = (rand() % 6) + 1;
-    diceSum[USER_DICE_SUM] = dice[USER_FIRST_DICE] + dice[USER_SECOND_DICE];,
-    cout << g_userName << " rolls the dice on the floor " << diceSum[USER_DICE_SUM] <<
-    " for the bet of " << g_userBettingAmount << "$" << endl,
-
-    if (diceSum[USER_DICE_SUM] == 2) {
-        // User Losses automatically
-
-        cout << g_userName << " Sorry you have lost as you got 2." << endl;
-
-
-        // g_startingBalanceOfUser = g_startingBalanceOfUser - g_userBettingAmount;
-        cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
-
-        goto end_of_diceRollGame;
-    } else if (diceSum[USER_DICE_SUM] == 12) {
-        // User Won automatically
-
-        cout << g_userName << " Congratulation on getting number 12, you've won automatically " <<
-            endl;
-
-
-        g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
-        cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
-
-        goto end_of_diceRollGame;
-    } else if (diceSum[PC_DICE_SUM] == diceSum[USER_DICE_SUM]) {
-        // if both got the same number in their dices
-
-        cout << " Haha, Sorry no one won as both players dices rolled";
-        cout << " on same number. " << endl;
-
-        /*
-         * Assigning user bett amount back to user starting balance ( g_startingBalanceOfUser )
-         * As of it's gonna ask user again to bet new amount after goto statement.
-         */
-        g_startingBalanceOfUser = g_userBettingAmount;
-        goto end_of_diceRollGame;
-    }
-    // else if user didn't got either 2, or 12
-
-    if (diceSum[PC_DICE_SUM] > diceSum[USER_DICE_SUM]) {
-
-        cout << "Computer got the higher number on their dice " <<
-            " Which was " << diceSum[PC_DICE_SUM]; /*<< endl */
-        cout << " Whereas you got " << diceSum[USER_DICE_SUM];
-
-
-        cout << " Sorry you've just lost " << g_userBettingAmount << "$.";
-
-        cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
-
-    } else {
-
-        cout << g_userName << " got the higher number on their dice " <<
-            " Which was " << diceSum[USER_DICE_SUM];
-        cout << " Whereas Computer got " << diceSum[PC_DICE_SUM];
-
-        cout << " Congratulations you've won " << g_userBettingAmount << "$.";,
-        g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
-        cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
-
-    }
-    end_of_diceRollGame:
-        /*
-         * checkUserMoney returns true if balance == 0 or < 0 else -> returns false
-         * playAgain returns true if userChoice == y || Y else returns false
-         */
-        if (checkUserMoney())
-            /* Send to main menu */
-            backToMain();
-        else {
-            if (playAgain())
-                goto start_of_diceRoll;
-            else
-                backToMain();
-        }
+     dice[USER_FIRST_DICE] = (rand() % 6) + 1; // in range 1 - 6;
+     dice[USER_SECOND_DICE] = (rand() % 6) + 1;
+     diceSum[USER_DICE_SUM] = dice[USER_FIRST_DICE] + dice[USER_SECOND_DICE];,
+     cout << g_userName << " rolls the dice on the floor " << diceSum[USER_DICE_SUM] <<
+         " for the bet of " << g_userBettingAmount << "$" << endl,
+         if (diceSum[USER_DICE_SUM] == 2) {
+             // User Losses automatically
+             cout << g_userName << " Sorry you have lost as you got 2." << endl;
+             // g_startingBalanceOfUser = g_startingBalanceOfUser - g_userBettingAmount;
+             cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
+         } else if (diceSum[USER_DICE_SUM] == 12) {
+         // User Won automatically
+         cout << g_userName << " Congratulation on getting number 12, you've won automatically " <<
+             endl;
+         g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
+         cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
+     } else if (diceSum[PC_DICE_SUM] == diceSum[USER_DICE_SUM]) {
+         // if both got the same number in their dices
+         cout << " Haha, Sorry no one won as both players dices rolled";
+         cout << " on same number. " << endl;
+         /*
+          * Assigning user bet amount back to user starting balance ( g_startingBalanceOfUser )
+          * As of it's gonna ask user again to bet new amount after goto statement.
+          * Then lad it should be added back instead of assigning.
+          * Since no one ever won in first place.
+          */
+        //  g_startingBalanceOfUser = g_userBettingAmount;
+        g_startingBalanceOfUser += g_userBettingAmount;
+         // else if user didn't got either 2, or 12
+     } else if (diceSum[PC_DICE_SUM] > diceSum[USER_DICE_SUM]) {
+         cout << "Computer got the higher number on their dice " <<
+             " Which was " << diceSum[PC_DICE_SUM]; /*<< endl */
+         cout << " Whereas you got " << diceSum[USER_DICE_SUM];
+         cout << " Sorry you've just lost " << g_userBettingAmount << "$.";
+         cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
+     } else {
+         cout << g_userName << " got the higher number on their dice " <<
+             " Which was " << diceSum[USER_DICE_SUM];
+         cout << " Whereas Computer got " << diceSum[PC_DICE_SUM];
+         cout << " Congratulations you've won " << g_userBettingAmount << "$.";,
+         g_startingBalanceOfUser = g_startingBalanceOfUser + (g_userBettingAmount * 2);
+         cout << "Your new balance is " << g_startingBalanceOfUser << "$.";
+     }
+ }
+   
+    endGame();
+       
 
     /*
         Eliminating use of conditions directly inside while
@@ -362,6 +328,22 @@ void diceRoll() {
     /* if( g_startingBalanceOfUser < 0 || g_startingBalanceOfUser == 0 || g_startingBalanceOfUser > 0 ) */
 
     // return 0; -> Useless return 
+}
+
+bool endGame() {
+     /*
+         * checkBalanceLeft returns true if balance == 0 or < 0 else -> returns false
+         * playAgain returns true if userChoice == y || Y else returns false
+         */
+        if (checkBalanceLeft())
+            /* Send to main menu */
+            backToMain();
+        else {
+            if (playAgain())
+                goto start_of_diceRoll;
+            else
+                backToMain();
+        }
 }
 
 void NumberGuessing() {
@@ -403,7 +385,7 @@ void NumberGuessing() {
 
     }
 
-    if (checkUserMoney())
+    if (checkBalanceLeft())
         /* Send to main menu */
         backToMain();
     else {
@@ -518,7 +500,7 @@ void High_and_Low() {
                     validateGuessByUser = true;
                 }
             } while (validateGuessByUser);
-        end_of_highAndLow: if (checkUserMoney()) {
+        end_of_highAndLow: if (checkBalanceLeft()) {
             /* Send to main menu */
             backToMain();
         }
@@ -540,15 +522,13 @@ void High_and_Low() {
                 confirmTransfer = false;
             else {
                 confirmTransfer = true;
-
                 cout << "Please enter m or M to get back to main menu.";
-
                 cout << "Anything else is not accepted.";
             }
         } while (confirmTransfer);
 
         g_getBackToMain = false;
-        main();
+        main(); // Damn it's dangerous
     }
 
 void askUserBet() {
@@ -557,6 +537,7 @@ void askUserBet() {
      * TODO: Think of a way to remove repition of validateUserBet - 3 times
      * TODO: A way where just setting it to true one time will do the trick.
      * *Just found a way let me try it.
+     * *For now looks like it will work, I'll find out when testing.
      * 
      */
     do {
@@ -584,24 +565,19 @@ void askUserBet() {
             cin >> askUser;
             if (askUser == 'Y' || askUser == 'y')
                 return true;
-
             else if (askUser == 'N' || askUser == 'n')
                 return false;
-
             else {
                 confirmPlayAgain = true;
-
                 cout << "Please enter your choice correctly.";
             }
         } while (confirmPlayAgain);
     }
 
-    bool checkUserMoney() {
+    bool checkBalanceLeft() {
         if (g_startingBalanceOfUser <= 0) {
-
             cout << "You don't have any money left to bet. ";
             cout << "Sending you back to main menu.";
-
             return true;
         } else
             return false;
