@@ -158,6 +158,12 @@ int main() {
      */
   };
 
+    /**
+     * *Can't touch it yet.
+     * *Probably some deep trick i thought of, with my little mind.
+     * *Going to clean it after done cleaning other functions.
+     */
+
   if (g_getBackToMain) {
     cout << "Golden Nuggets Casino" << endl;
     cout << "Enter your name please : ";
