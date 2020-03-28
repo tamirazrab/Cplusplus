@@ -84,11 +84,11 @@ void High_and_Low();
 void askUserBet( int maxBet = DR_MAX_BET_AMT, int minBet = DR_MIN_BET_AMT );
 
 /*
- * Play again gets user choice ( validated ) whether he wants to play again or not.
+ * ContinuePlaying gets user choice ( validated ) whether he wants to play again or not.
  * then returns true if user presses Y or y and returns false if user enters n or N
  */
 
-bool playAgain();
+bool ContinuePlaying();
 
 /*
  * Check user money functions checks whether user starting balance reached zero or not
@@ -217,7 +217,7 @@ int main() {
             break;
         default:
             ( * gameFunctions[userMenuChoice])();
-            user_playAgain = playAgain();
+            user_playAgain = ContinuePlaying();
             break;
         }
         cout << "Your balance is " << g_startingBalanceOfUser << "$ from previous games.";
@@ -366,7 +366,7 @@ void endGame(int callBy) {
      * checkBalanceLeft returns true if balance == 0 or < 0 else -> returns false
      * playAgain returns true if userChoice == y || Y else returns false
      */
-    if (playAgain())
+    if ( gameContinue( callBy ))
         switch (callBy) {
             case CALL_BY_DR:
                 diceRoll();
@@ -522,11 +522,11 @@ void askUserBet( int maxBet = DR_MAX_BET_AMT, int minBet = DR_MIN_BET_AMT ) {
     g_startingBalanceOfUser -= g_userBettingAmount;
 }
 
-bool playAgain() {
+bool ContinuePlaying () {
     bool confirmPlayAgain = false;
     char askUser;
     do {
-        cout << "Do you want to play again ? (Y/N) : ";
+        cout << "Do you want to go back to main menu? (Y/N) : ";
         cin >> askUser;
         if (askUser == 'Y' || askUser == 'y')
             return true;
