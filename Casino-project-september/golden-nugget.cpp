@@ -180,9 +180,9 @@ int main() {
     srand(time(NULL)); // calls only once seeding rand()
 
     void( * gameFunctions[])() = {
-        diceRoll,
         NumberGuessing,
-        High_and_Low
+        High_and_Low,
+        diceRoll
         /**
          * TODO: Not sure if exit function will fit in anyway
          * TODO: will take that headache on testing times.
@@ -443,8 +443,8 @@ void High_and_Low() {
         cout << "(L/l for Low) ";
         cout << "Enter your guess : ";
         cin >> takeGuessFromUser;
-        if (takeGuessFromUser != 'h' || takeGuessFromUser != 'H' ||
-            takeGuessFromUser != 'l' || takeGuessFromUser != 'L') {
+        if (takeGuessFromUser != 'h' && takeGuessFromUser != 'H' &&
+            takeGuessFromUser != 'l' && takeGuessFromUser != 'L') {
             cout << "You entered invalid guess.";
             cout << "Please enter valid guess again.";
             validateGuessByUser = true;
