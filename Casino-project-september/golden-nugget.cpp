@@ -8,10 +8,21 @@
 
 using namespace std;
 
-#
-define MAX_BET_AMT 1400 // Dice Roll max bet amount
-# define MIN_BET_AMT 5 // Dice Roll min bet amount
-# define PC_FIRST_DICE 0# define PC_SECOND_DICE 1# define USER_FIRST_DICE 2# define USER_SECOND_DICE 3# define PC_DICE_SUM 0# define USER_DICE_SUM 1# define CALL_BY_DR 0# define CALL_BY_NG 1# define CALL_BY_HL 2
+#define DR_MAX_BET_AMT 1400 // Dice Roll max bet amount
+#define DR_MIN_BET_AMT 5 // Dice Roll min bet amount
+#define NG_MAX_BET_AMT 950
+#define NG_MIN_BET_AMT 16
+#define HG_MAX_BET_AMT 870
+#define HG_MIN_BET_AMT 13
+# define PC_FIRST_DICE 0
+# define PC_SECOND_DICE 1
+# define USER_FIRST_DICE 2
+# define USER_SECOND_DICE 3
+# define PC_DICE_SUM 0
+# define USER_DICE_SUM 1 
+# define CALL_BY_DR 0
+# define CALL_BY_NG 1
+# define CALL_BY_HL 2
 
 // Function Declaration area
 /*
