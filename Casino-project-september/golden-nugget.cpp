@@ -174,6 +174,7 @@ int g_userBettingAmount = 0;
  * TODO: Provide user a way to clear screen on their own.
  * TODO: Reduce or completely remove global variable use local variation.
  * TODO: Display current balance when displaying ERROR message when user bets more than his balance.
+ * TODO: New lines to be added after every message - most tiresome work to be done.
  * @return int 
  */
 int main() {
@@ -593,7 +594,7 @@ bool gameContinue(int gameCode) {
     }
 
     do {
-        cout << "Do you want to play game" << gameName <<
+        cout << "Do you want to play game " << gameName <<
             " again ? (Y/N) : ";
         cin >> userChoice;
         if (userChoice == 'Y' || userChoice == 'y')
