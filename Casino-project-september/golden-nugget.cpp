@@ -300,8 +300,7 @@ void diceRoll() {
             // to let user out of loop if he/she typed r/R
             // rolldice_check = !(rollDice == 'r' || rollDice == 'R');
             // Testing is needed
-        } while (rollDice != 'r'
-            xor rollDice != 'R'); /*rollDice != 'r' || rollDice != 'R'*/
+        } while (rollDice != 'r' && rollDice != 'R'); /*rollDice != 'r' || rollDice != 'R'*/
 
         dice[USER_FIRST_DICE] = (rand() % 6) + 1; // in range 1 - 6;
         dice[USER_SECOND_DICE] = (rand() % 6) + 1;
