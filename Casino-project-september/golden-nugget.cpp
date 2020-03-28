@@ -17,15 +17,15 @@ using namespace std;
 #define NG_MIN_BET_AMT 16
 #define HG_MAX_BET_AMT 870
 #define HG_MIN_BET_AMT 13
-# define PC_FIRST_DICE 0
-# define PC_SECOND_DICE 1
-# define USER_FIRST_DICE 2
-# define USER_SECOND_DICE 3
-# define PC_DICE_SUM 0
-# define USER_DICE_SUM 1 
-# define CALL_BY_DR 0
-# define CALL_BY_NG 1
-# define CALL_BY_HL 2
+#define PC_FIRST_DICE 0
+#define PC_SECOND_DICE 1
+#define USER_FIRST_DICE 2
+#define USER_SECOND_DICE 3
+#define PC_DICE_SUM 0
+#define USER_DICE_SUM 1 
+#define CALL_BY_DR 0
+#define CALL_BY_NG 1
+#define CALL_BY_HL 2
 
 // Function Declaration area
 
@@ -126,7 +126,7 @@ int gameMenu();
  * @brief Asks user to play again if not directs back to main else invokes diceRoll function.
  * 
  */
-void endGame();
+void endGame( int gameCode );
 
 /**
  * @brief  Ask user to continue playing particular game which was already being played.
@@ -347,7 +347,7 @@ void diceRoll() {
         }
     }
 
-    endGame();
+    endGame( CALL_BY_DR );
 
 
     /*
@@ -364,24 +364,7 @@ void diceRoll() {
     // return 0; -> Useless return 
 }
 
-void endGame(int callBy) {
-    /*
-     * checkBalanceLeft returns true if balance == 0 or < 0 else -> returns false
-     * playAgain returns true if userChoice == y || Y else returns false
-     */
-    if ( gameContinue( callBy ))
-        switch (callBy) {
-            case CALL_BY_DR:
-                diceRoll();
-                break;
-            case CALL_BY_NG:
-                NumberGuessing();
-                break;
-            case CALL_BY_HL:
-                High_and_Low();
-                break;
-        }
-}
+
 
 void NumberGuessing() {
     /**
@@ -622,4 +605,23 @@ bool gameContinue( int gameCode ) {
         }
     } while (userPlayAgain);
 
+}
+
+void endGame(int callBy) {
+    /*
+     * checkBalanceLeft returns true if balance == 0 or < 0 else -> returns false
+     * playAgain returns true if userChoice == y || Y else returns false
+     */
+    if ( gameContinue( callBy ))
+        switch (callBy) {
+            case CALL_BY_DR:
+                diceRoll();
+                break;
+            case CALL_BY_NG:
+                NumberGuessing();
+                break;
+            case CALL_BY_HL:
+                High_and_Low();
+                break;
+        }
 }
