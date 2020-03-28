@@ -210,14 +210,12 @@ int main() {
         } while (v_startingBalance(g_startingBalanceOfUser));
 
         userMenuChoice = gameMenu();
+        userMenuChoice--; // decrement for 0 based array
         switch (userMenuChoice) {
-            case 1:
-                userMenuChoice = 0; // setting to zero because to pointer to function array;
-                break;
-            case 4:
+            case 3:
                 user_playAgain = false;
                 break;
-            case 5:
+            case 4:
                 system("cls");
                 break;
             default:
