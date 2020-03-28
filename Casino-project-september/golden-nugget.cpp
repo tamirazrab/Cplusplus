@@ -76,6 +76,7 @@ void High_and_Low();
  * Ask user bet gets user bet ( validated ) and stores it in global variable so that all functions
  * can access it properly, it is called on every function start. Returns true after it's get valid bet amount,
  * There's really no need to pass extra arguments, when can access made macros.
+ * There is a need because these different games have different maxmium and minimum amount limit.
  */
 
 
@@ -230,16 +231,17 @@ void diceRoll() {
         then it also not allowed
     */
     /*
-     * MAX_BET_AMT represents maximum bet can be placed in dice roll which is 700$
-     * MIN_BET_AMT represents minimum bet can be placed in dice roll which is 5$
+     * DR_MAX_BET_AMT represents maximum bet can be placed in dice roll which is 700$
+     * DR_MIN_BET_AMT represents minimum bet can be placed in dice roll which is 5$
      */
     /**
      * *If macros are accessible why pass them thought parameters? Haha, funniest thing I've seen.
      * *It's 2 year old me though. 
      */
-    // askUserBet(MAX_BET_AMT, MIN_BET_AMT);
+    // askUserBet(DR_MAX_BET_AMT, DR_MIN_BET_AMT);
     askUserBet();
-
+    // By default it holds DR_MAX_BET_AMT, DR_MIN_BET_AMT params
+    // No need to pass it when call made by diceRoll function
     /*
      * Array of integer dice contains the sum of dices rolled both by computer and user.
      * First two indexes of dice array represents computer dices rolled on floor
@@ -384,6 +386,7 @@ void NumberGuessing() {
      */
     gameGreetings("Number Guessing");
     // askUserBet(200, 100);
+    askUserBet( NG_MAX_BET_AMT , NG_MIN_BET_AMT ); 
     // After user bet is validated properly
     // generates number in range of 1 - 10 and stores in RandomNumberByComputer;
     int RandomNumberByComputer = (rand() % 10) + 1;
@@ -427,6 +430,8 @@ void High_and_Low() {
     bool validateGuessByUser = false;
     int holdTwoNumbers[2];
     // askUserBet(800, 100);
+    askUserBet( HG_MAX_BET_AMT , HG_MIN_BET_AMT );
+
     // Starting Game by generating two random numbers
     holdTwoNumbers[0] = (rand() % 10) + 1; // in range 1 - 10
     holdTwoNumbers[1] = (rand() % 10) + 1;
@@ -508,7 +513,7 @@ void askUserBet( int maxBet = DR_MAX_BET_AMT, int minBet = DR_MIN_BET_AMT ) {
             // g_startingBalanceOfUser = g_startingBalanceOfUser - g_userBettingAmount;
         }
     } while (validateUserBet);
-    
+
     g_startingBalanceOfUser -= g_userBettingAmount;
 }
 
