@@ -448,7 +448,8 @@ void High_and_Low() {
             cout << "You entered invalid guess.";
             cout << "Please enter valid guess again.";
             validateGuessByUser = true;
-        }
+        } else
+            validateGuessByUser = false;
     } while (validateGuessByUser);
 
     if (takeGuessFromUser == 'H' || takeGuessFromUser == 'h') {
