@@ -177,9 +177,9 @@ int main() {
     srand(time(NULL)); // calls only once seeding rand()
 
     void( * gameFunctions[])() = {
-        NumberGuessing,
-        High_and_Low,
         diceRoll,
+        NumberGuessing,
+        High_and_Low
         /**
          * TODO: Not sure if exit function will fit in anyway
          * TODO: will take that headache on testing times.
