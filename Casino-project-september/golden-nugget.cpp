@@ -426,9 +426,10 @@ void High_and_Low() {
          * Then it's obvious that second number will be lesser
          * Or if first random generated number is lesser then 3
          * Then it's also obvious that second number will be greater no matter what!
-         */
+    */
+    do {
         holdTwoNumbers[0] = (rand() % 10) + 1;
-        goto getValid_randomNumber;
+    } while ( holdTwoNumbers [ 0 ] > 8 || holdTwoNumbers [ 0 ] < 3);
         cout << "Computer Generated first number is " << holdTwoNumbers[0],
             // Taking User guess
             do {
