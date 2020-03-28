@@ -372,7 +372,7 @@ void NumberGuessing() {
     int RandomNumberByComputer = (rand() % 10) + 1;
     int getUserGuess = 0;
     cout << "Computer Generated a random number in range of ( 1 - 10) ",
-        bool validateUserGuess = false;
+    bool validateUserGuess = false;
     do {
         cout << "Enter your guess : ";
         cin >> getUserGuess;
@@ -414,33 +414,31 @@ void High_and_Low() {
     holdTwoNumbers[0] = (rand() % 10) + 1; // in range 1 - 10
     holdTwoNumbers[1] = (rand() % 10) + 1;
     /*
-         * Did, because if first random generated number is greater then 8
-         * Then it's obvious that second number will be lesser
-         * Or if first random generated number is lesser then 3
-         * Then it's also obvious that second number will be greater no matter what!
-    */
+     * Did, because if first random generated number is greater then 8
+     * Then it's obvious that second number will be lesser
+     * Or if first random generated number is lesser then 3
+     * Then it's also obvious that second number will be greater no matter what!
+     */
     do {
         holdTwoNumbers[0] = (rand() % 10) + 1;
-    } while ( holdTwoNumbers [ 0 ] > 8 || holdTwoNumbers [ 0 ] < 3);
-        cout << "Computer Generated first number is " << holdTwoNumbers[0],
-            // Taking User guess
-            do {
-                cout << "Tell whether next generated number is high or low";
-                cout << "then previously generated number. ( H/h for high )";
-                cout << "(L/l for Low) ";
-                cout << "Enter your guess : ";
-                cin >> takeGuessFromUser;
-                if ( takeGuessFromUser != 'h' || takeGuessFromUser != 'H' 
-                    || takeGuessFromUser != 'l' || takeGuessFromUser != 'L' ){
-                    cout << "You entered invalid guess.";
-                    cout << "Please enter valid guess again.";
+    } while (holdTwoNumbers[0] > 8 || holdTwoNumbers[0] < 3);
+    cout << "Computer Generated first number is " << holdTwoNumbers[0],
+        // Taking User guess
+        do {
+            cout << "Tell whether next generated number is high or low";
+            cout << "then previously generated number. ( H/h for high )";
+            cout << "(L/l for Low) ";
+            cout << "Enter your guess : ";
+            cin >> takeGuessFromUser;
+            if (takeGuessFromUser != 'h' || takeGuessFromUser != 'H' ||
+                takeGuessFromUser != 'l' || takeGuessFromUser != 'L') {
+                cout << "You entered invalid guess.";
+                cout << "Please enter valid guess again.";
                 validateGuessByUser = true;
             }
-    }
-    while (validateGuessByUser);
+        } while (validateGuessByUser);
 
     if (takeGuessFromUser == 'H' || takeGuessFromUser == 'h') {
-
         if (holdTwoNumbers[1] > holdTwoNumbers[0]) {
             cout << "Congratulations you guessed right";
             cout << "Second generated number was " << holdTwoNumbers[1];
@@ -454,7 +452,6 @@ void High_and_Low() {
             cout << "Your new balance is " << g_startingBalanceOfUser << "$";
         }
     } else if (takeGuessFromUser == 'L' || takeGuessFromUser == 'l') {
-        validateGuessByUser = false;
         if (holdTwoNumbers[1] < holdTwoNumbers[0]) {
             cout << "Congratulations you guessed right";
             cout << "Second generated number was " << holdTwoNumbers[1];
@@ -465,86 +462,87 @@ void High_and_Low() {
             cout << "Sorry you have lost " << g_userBettingAmount << "$";
             cout << "Second generated number was " << holdTwoNumbers[1];
             cout << "Your new balance is " << g_startingBalanceOfUser << "$";
-        }
-
-        endGame(CALL_BY_HL);
+        }  
     }
+    endGame(CALL_BY_HL);
+}
 
-    void backToMain() {
-        bool confirmTransfer = false;
-        do {
-            cout << "Please Press m or M to go to main menu : ";
-            char askUser;
-            cin >> askUser;
-            if (askUser == 'M' || askUser == 'm')
-                confirmTransfer = false;
-            else {
-                confirmTransfer = true;
-                cout << "Please enter m or M to get back to main menu.";
-                cout << "Anything else is not accepted.";
-            }
-        } while (confirmTransfer);
 
-        g_getBackToMain = false;
-        main(); // Damn it's dangerous
-    }
-
-    void askUserBet() {
-        bool validateUserBet = true;
-        /**
-         * TODO: Think of a way to remove repition of validateUserBet - 3 times
-         * TODO: A way where just setting it to true one time will do the trick.
-         * *Just found a way let me try it.
-         * *For now looks like it will work, I'll find out when testing.
-         * 
-         */
-        do {
-            cout << "Please enter the amount you want to bet : ";
-            cin >> g_userBettingAmount;
-            if (g_userBettingAmount > g_startingBalanceOfUser)
-                cout << "Sorry you can't bet more then your original balance.";
-            else if (g_userBettingAmount > MAX_BET_AMT)
-                cout << "Sorry you cannot place bet more then " << MAX_BET_AMT << "$.";
-            else if (g_userBettingAmount < MIN_BET_AMT)
-                cout << "Sorry your bet must be greater then " << MIN_BET_AMT << "$.";
-            else {
-                validateUserBet = false;
-                // deducting money before hand
-                g_startingBalanceOfUser = g_startingBalanceOfUser - g_userBettingAmount;
-            }
-        } while (validateUserBet);
-    }
-
-    bool playAgain() {
-        bool confirmPlayAgain = false;
+void backToMain() {
+    bool confirmTransfer = false;
+    do {
+        cout << "Please Press m or M to go to main menu : ";
         char askUser;
-        do {
-            cout << "Do you want to play again ? (Y/N) : ";
-            cin >> askUser;
-            if (askUser == 'Y' || askUser == 'y')
-                return true;
-            else if (askUser == 'N' || askUser == 'n')
-                return false;
-            else {
-                confirmPlayAgain = true;
-                cout << "Please enter your choice correctly.";
-            }
-        } while (confirmPlayAgain);
-    }
+        cin >> askUser;
+        if (askUser == 'M' || askUser == 'm')
+            confirmTransfer = false;
+        else {
+            confirmTransfer = true;
+            cout << "Please enter m or M to get back to main menu.";
+            cout << "Anything else is not accepted.";
+        }
+    } while (confirmTransfer);
 
-    bool checkBalanceLeft() {
-        if (g_startingBalanceOfUser <= 0) {
-            cout << "You don't have any money left to bet. ";
-            cout << "Sending you back to main menu.";
+    g_getBackToMain = false;
+    main(); // Damn it's dangerous
+}
+
+void askUserBet() {
+    bool validateUserBet = true;
+    /**
+     * TODO: Think of a way to remove repition of validateUserBet - 3 times
+     * TODO: A way where just setting it to true one time will do the trick.
+     * *Just found a way let me try it.
+     * *For now looks like it will work, I'll find out when testing.
+     * 
+     */
+    do {
+        cout << "Please enter the amount you want to bet : ";
+        cin >> g_userBettingAmount;
+        if (g_userBettingAmount > g_startingBalanceOfUser)
+            cout << "Sorry you can't bet more then your original balance.";
+        else if (g_userBettingAmount > MAX_BET_AMT)
+            cout << "Sorry you cannot place bet more then " << MAX_BET_AMT << "$.";
+        else if (g_userBettingAmount < MIN_BET_AMT)
+            cout << "Sorry your bet must be greater then " << MIN_BET_AMT << "$.";
+        else {
+            validateUserBet = false;
+            // deducting money before hand
+            g_startingBalanceOfUser = g_startingBalanceOfUser - g_userBettingAmount;
+        }
+    } while (validateUserBet);
+}
+
+bool playAgain() {
+    bool confirmPlayAgain = false;
+    char askUser;
+    do {
+        cout << "Do you want to play again ? (Y/N) : ";
+        cin >> askUser;
+        if (askUser == 'Y' || askUser == 'y')
             return true;
-        } else
+        else if (askUser == 'N' || askUser == 'n')
             return false;
-    }
+        else {
+            confirmPlayAgain = true;
+            cout << "Please enter your choice correctly.";
+        }
+    } while (confirmPlayAgain);
+}
 
-    void gameGreetings(string gameName) {
-        system("cls")
+bool checkBalanceLeft() {
+    if (g_startingBalanceOfUser <= 0) {
+        cout << "You don't have any money left to bet. ";
+        cout << "Sending you back to main menu.";
+        return true;
+    } else
+        return false;
+}
 
-        cout << "Welcome to " << gameName << " Game " << " Mr." << g_userName << endl '$')
+void gameGreetings(string gameName) {
+    system("cls")
+
+    cout << "Welcome to " << gameName << " Game " << " Mr." << g_userName << endl '$')
 }
 
 bool v_startingBalance(int getStartingBalance) {
