@@ -79,8 +79,8 @@ void High_and_Low();
  */
 
 
-// bool askUserBet(int MAX_BET_AMT , int MIN_BET_AMT );
-void askUserBet();
+// bool askUserBet(int DR_MAX_BET_AMT , int DR_MIN_BET_AMT );
+void askUserBet( int maxBet = DR_MAX_BET_AMT, int minBet = DR_MIN_BET_AMT );
 
 /*
  * Play again gets user choice ( validated ) whether he wants to play again or not.
@@ -484,7 +484,7 @@ void High_and_Low() {
     endGame(CALL_BY_HL);
 }
 
-void askUserBet() {
+void askUserBet( int maxBet = DR_MAX_BET_AMT, int minBet = DR_MIN_BET_AMT ) {
     bool validateUserBet = true;
     /**
      * TODO: Think of a way to remove repition of validateUserBet - 3 times
@@ -498,16 +498,18 @@ void askUserBet() {
         cin >> g_userBettingAmount;
         if (g_userBettingAmount > g_startingBalanceOfUser)
             cout << "Sorry you can't bet more then your original balance.";
-        else if (g_userBettingAmount > MAX_BET_AMT)
-            cout << "Sorry you cannot place bet more then " << MAX_BET_AMT << "$.";
-        else if (g_userBettingAmount < MIN_BET_AMT)
-            cout << "Sorry your bet must be greater then " << MIN_BET_AMT << "$.";
+        else if (g_userBettingAmount > maxBet )
+            cout << "Sorry you cannot place bet more then " << maxBet << "$.";
+        else if (g_userBettingAmount < minBet )
+            cout << "Sorry your bet must be greater then " << minBet << "$.";
         else {
             validateUserBet = false;
             // deducting money before hand
-            g_startingBalanceOfUser = g_startingBalanceOfUser - g_userBettingAmount;
+            // g_startingBalanceOfUser = g_startingBalanceOfUser - g_userBettingAmount;
         }
     } while (validateUserBet);
+    
+    g_startingBalanceOfUser -= g_userBettingAmount;
 }
 
 bool playAgain() {
