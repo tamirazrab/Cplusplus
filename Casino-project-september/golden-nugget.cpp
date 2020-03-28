@@ -145,7 +145,12 @@ int g_startingBalanceOfUser = 0;
 int g_userBettingAmount = 0;
 
 
-
+/**
+ * *TODO list for main function, tasks pending or to be done.
+ * TODO: Provide user a way to clear screen on their own.
+ * TODO: Reduce or completely remove global variable use local variation.
+ * @return int 
+ */
 int main() {
     system("cls"); // Clear Screen
     srand(time(NULL)); // calls only once seeding rand()
@@ -165,27 +170,21 @@ int main() {
      * *Can't touch it yet.
      * *Probably some deep trick i thought of, with my little mind.
      * *Going to clean it after done cleaning other functions.
+     * *Okay cleaned it time to remove some functions.
      */
-
-    if (g_getBackToMain) {
-        cout << "Golden Nuggets Casino" << endl;
-        cout << "Enter your name please : ";
-        getline(cin, g_userName);
-    } else {
-        cout << "Your balance is " << g_startingBalanceOfUser << "$ from previous games.";
-        cout << " Please Deposit some new amount to play more games.";
-    }
-
-
-    do {
-        cout << "Enter your starting betting amount in $ : ";
-        cin >> g_startingBalanceOfUser;
-    } while (v_startingBalance(g_startingBalanceOfUser));
-
+    cout << "Golden Nuggets Casino" << endl;
+    cout << "Enter your name please : ";
+    getline(cin, g_userName);
 
     int userMenuChoice = 0;
     bool user_playAgain = false;
     do {
+        // New balance everytime user wants to play different game.
+        do {
+        cout << "Enter your starting betting amount in $ : ";
+        cin >> g_startingBalanceOfUser;
+        } while (v_startingBalance(g_startingBalanceOfUser));
+
         userMenuChoice = gameMenu();
         switch (userMenuChoice) {
         case 1:
@@ -200,6 +199,8 @@ int main() {
             user_playAgain = playAgain();
             break;
         }
+        cout << "Your balance is " << g_startingBalanceOfUser << "$ from previous games.";
+        cout << " Please Deposit some new amount to play more games.";
     } while ( playAgain );
 
     return 0;
