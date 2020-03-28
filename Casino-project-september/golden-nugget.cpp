@@ -39,7 +39,7 @@ using namespace std;
  * If computer or player dice sum equals to 12 -> then they will automatically be declared as winner
  */
 
-int diceRoll();
+void diceRoll();
 
 /*
  * Number Guessing function generates a random number in range of 1 - 10
