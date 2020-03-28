@@ -59,7 +59,7 @@ void High_and_Low();
  * It is called on every function end before asking whether user want to play again or not.
  */
 
-void backToMain();
+// void backToMain();
 
 /*
  * Ask user bet gets user bet ( validated ) and stores it in global variable so that all functions
@@ -471,26 +471,6 @@ void High_and_Low() {
         }  
     }
     endGame(CALL_BY_HL);
-}
-
-
-void backToMain() {
-    bool confirmTransfer = false;
-    do {
-        cout << "Please Press m or M to go to main menu : ";
-        char askUser;
-        cin >> askUser;
-        if (askUser == 'M' || askUser == 'm')
-            confirmTransfer = false;
-        else {
-            confirmTransfer = true;
-            cout << "Please enter m or M to get back to main menu.";
-            cout << "Anything else is not accepted.";
-        }
-    } while (confirmTransfer);
-
-    g_getBackToMain = false;
-    main(); // Damn it's dangerous
 }
 
 void askUserBet() {
