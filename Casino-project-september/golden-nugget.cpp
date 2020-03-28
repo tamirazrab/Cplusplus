@@ -215,13 +215,16 @@ int main() {
         case 4:
             user_playAgain = false;
             break;
+        case 5:
+            system("cls");
+            break;
         default:
             ( * gameFunctions[userMenuChoice])();
+            cout << "Your balance is " << g_startingBalanceOfUser << "$ from previous games.";
+            cout << " Please Deposit some new amount to play more games.";
             user_playAgain = ContinuePlaying();
             break;
         }
-        cout << "Your balance is " << g_startingBalanceOfUser << "$ from previous games.";
-        cout << " Please Deposit some new amount to play more games.";
     } while ( user_playAgain );
     cout << "Thank you so much for using.\n";
     cout << "Have a good day.";
@@ -246,7 +249,8 @@ void diceRoll() {
      */
     /**
      * *If macros are accessible why pass them thought parameters? Haha, funniest thing I've seen.
-     * *It's 2 year old me though. 
+     * *It's 2 year old me though. Okay I was under estimating myself, params weren't there for no reason.
+     * *They were handling different games different max and min limit of games.
      */
     // askUserBet(DR_MAX_BET_AMT, DR_MIN_BET_AMT);
     askUserBet();
@@ -569,14 +573,15 @@ int gameMenu() {
     int gameSelection = 0;
     do {
         cout << "Welcome to Golden Nugget Casino, " << g_userName << endl;
-        cout << "Please Choose from the list below, Which game you want to play ? "
-        cout << " 1 - Number Guessing ( Win amount x10) " << endl
-        cout << " 2 - High and Low ( Win amount x2) " << endl
-        cout << " 3 - Dice Roll ( Win amount x2)" << endl
-        cout << " 4 - To Exit Program." << end
+        cout << "Please Choose from the list below, Which game you want to play ? ";
+        cout << " 1 - Number Guessing ( Win amount x10) " << endl;
+        cout << " 2 - High and Low ( Win amount x2) " << endl;
+        cout << " 3 - Dice Roll ( Win amount x2)" << endl;
+        cout << " 4 - To Exit Program." << endl;
+        cout << " 5 - Clear Screen." << endl 
         cout << "Enter your choice below ( in numbers ) : ";
         cin >> gameSelection;
-        if (gameSelection < 1 || gameSelection > 4) {
+        if (gameSelection < 1 || gameSelection > 5) {
             cout << "\nInvalid choice, please select correct one.\n";
             choiceCheck = true;
         } else
