@@ -1,15 +1,18 @@
 #include <iostream>
-
 #include <stdlib.h>
-
 #include <time.h>
-
 #include <string.h>
 
 using namespace std;
 
-#define DR_MAX_BET_AMT 1400 // Dice Roll max bet amount
-#define DR_MIN_BET_AMT 5 // Dice Roll min bet amount
+/**
+ * *DR - Dice Roll
+ * *NG - Number Guessing
+ * *HL - High Low
+ * 
+ */
+#define DR_MAX_BET_AMT 1400 
+#define DR_MIN_BET_AMT 5 
 #define NG_MAX_BET_AMT 950
 #define NG_MIN_BET_AMT 16
 #define HG_MAX_BET_AMT 870
@@ -25,12 +28,6 @@ using namespace std;
 # define CALL_BY_HL 2
 
 // Function Declaration area
-/*
-	Draw line function draws a line of special
-	character specified in it's parameters to a
-	given length
-*/
-
 
 /*
  * Dice roll function works with by taking user starting amount, asking user to bet some money
@@ -68,6 +65,8 @@ void High_and_Low();
  * back to main function as name suggest directs user back to main() function when user is done
  * playing one game and wants to play another game or to close program.
  * It is called on every function end before asking whether user want to play again or not.
+ * Removed backToMain function it was dangerous calling main function from another function
+ * Implemented better exit strategy by looping game menu.
  */
 
 // void backToMain();
@@ -264,8 +263,7 @@ void diceRoll() {
      * dice [ USER_FIRST_DICE -> equivalent to 2 ] , dice [ USER_SECOND_DICE -> equivalent to 3 ]
      */
 
-    int dice[4],
-    int diceSum[2];
+    int dice[4] , diceSum[2];
     dice[PC_FIRST_DICE] = (rand() % 6) + 1; // in range 1 - 6;
     dice[PC_SECOND_DICE] = (rand() % 6) + 1;
     diceSum[PC_DICE_SUM] = dice[PC_FIRST_DICE] + dice[PC_SECOND_DICE];
