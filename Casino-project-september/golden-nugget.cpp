@@ -129,6 +129,16 @@ int gameMenu();
  */
 void endGame();
 
+/**
+ * @brief  Ask user to continue playing particular game which was already being played.
+ * 
+ * @param gameCode 
+ * @return true - if want to play again
+ * @return false  - opposite
+ */
+
+bool gameContinue( int gameCode );
+
 // Global variables area
 /*
 	direct back to main() function
@@ -574,4 +584,39 @@ int gameMenu() {
     } while (choiceCheck);
 
     return gameSelection;
+}
+
+bool gameContinue( int gameCode ) {
+    string gameName;
+    char userChoice;
+    bool userPlayAgain = false;
+    switch ( gameCode )
+    {
+    case CALL_BY_DR:
+        gameName = "Dice Roll";
+        break;
+    case CALL_BY_NG:
+        gameName = "Number Guessing";
+        break;
+    case CALL_BY_HL:
+        gameName = "High and Low";
+        break;
+    default:
+        break;
+    }
+
+    do {
+        cout << "Do you want to play game" << gameName 
+        << " again ? (Y/N) : ";
+        cin >> userChoice;
+        if (userChoice == 'Y' || userChoice == 'y')
+            return true;
+        else if (userChoice == 'N' || userChoice == 'n')
+            return false;
+        else {
+            userPlayAgain = true;
+            cout << "Please enter your choice correctly.";
+        }
+    } while (confirmPlayAgain);
+
 }
