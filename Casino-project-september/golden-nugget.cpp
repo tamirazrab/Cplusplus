@@ -173,6 +173,7 @@ int g_userBettingAmount = 0;
  * *TODO list for main function, tasks pending or to be done.
  * TODO: Provide user a way to clear screen on their own.
  * TODO: Reduce or completely remove global variable use local variation.
+ * TODO: Display current balance when displaying ERROR message when user bets more than his balance.
  * @return int 
  */
 int main() {
