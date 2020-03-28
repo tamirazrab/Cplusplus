@@ -183,8 +183,11 @@ int main() {
     } while (v_startingBalance(g_startingBalanceOfUser));
 
 
-    int userMenuChoice = gameMenu();
-    switch (userMenuChoice) {
+    int userMenuChoice = 0;
+    bool user_playAgain = false;
+    do {
+        userMenuChoice = gameMenu();
+        switch (userMenuChoice) {
         case 1:
             userMenuChoice = 0; // setting to zero because to pointer to function array;
             break;
@@ -194,8 +197,10 @@ int main() {
             exit(EXIT_SUCCESS);
         default:
             ( * gameFunctions[userMenuChoice])();
+            user_playAgain = playAgain();
             break;
-    }
+        }
+    } while ( playAgain );
 
     return 0;
 }
