@@ -213,9 +213,8 @@ int main() {
             userMenuChoice = 0; // setting to zero because to pointer to function array;
             break;
         case 4:
-            cout << "Thank you so much for using.\n";
-            cout << "Have a good day.";
-            exit(EXIT_SUCCESS);
+            user_playAgain = false;
+            break;
         default:
             ( * gameFunctions[userMenuChoice])();
             user_playAgain = playAgain();
@@ -223,8 +222,9 @@ int main() {
         }
         cout << "Your balance is " << g_startingBalanceOfUser << "$ from previous games.";
         cout << " Please Deposit some new amount to play more games.";
-    } while ( playAgain );
-
+    } while ( user_playAgain );
+    cout << "Thank you so much for using.\n";
+    cout << "Have a good day.";
     return 0;
 }
 
