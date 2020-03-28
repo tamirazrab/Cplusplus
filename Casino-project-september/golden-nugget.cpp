@@ -251,7 +251,7 @@ void diceRoll() {
      */
 
     int dice[4],
-        int diceSum[2];
+    int diceSum[2];
     dice[PC_FIRST_DICE] = (rand() % 6) + 1; // in range 1 - 6;
     dice[PC_SECOND_DICE] = (rand() % 6) + 1;
     diceSum[PC_DICE_SUM] = dice[PC_FIRST_DICE] + dice[PC_SECOND_DICE];
@@ -356,24 +356,19 @@ void endGame(int callBy) {
      * checkBalanceLeft returns true if balance == 0 or < 0 else -> returns false
      * playAgain returns true if userChoice == y || Y else returns false
      */
-    if (checkBalanceLeft())
-        /* Send to main menu */
-        backToMain();
-    else {
-        if (playAgain())
-            switch (callBy) {
-                case CALL_BY_DR:
-                    diceRoll();
-                    break;
-                case CALL_BY_NG:
-                    NumberGuessing();
-                    break;
-                case CALL_BY_HL:
-                    High_and_Low();
-                    break;
-            }
+    if (playAgain())
+        switch (callBy) {
+            case CALL_BY_DR:
+                diceRoll();
+                break;
+            case CALL_BY_NG:
+                NumberGuessing();
+                break;
+            case CALL_BY_HL:
+                High_and_Low();
+                break;
+        }
     }
-    backToMain();
 }
 
 void NumberGuessing() {
